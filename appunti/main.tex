@@ -1,6 +1,7 @@
 \documentclass{book}
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{hyperref}
+\newcommand{\spazio}{\vspace{1em} \newline}
 
 \title{Logica 2022/2023}
 \author{Blascovich Alessio\\
@@ -40,18 +41,91 @@
         \item \textbf{Linguistic representation:} Non la ho capita, ste cazzate filosofiche.
     \end{itemize}
 
-    \chapter{Modellazione mentale}
-    \section{Conoscenza semantica}
+    \section{Modellazione}
+    \subsection{Modellazione}
     \begin{itemize}
+        \item \textbf{Modellazione:} La modellazione è l'attività che porta alla realizzazione di una rappresentazione attraverso una serie di rappresentazioni mentali intermedie.
         \item \textbf{Teoria:} Identifica la rappresentazione linguistica prodotta da attività di modellazione.
         \item \textbf{Modello:} E' una rappresentazione analogica data da un modello.\\
             Possiamo anche dire che sia il modello inteso dalla teoria e che $T$ sia la teoria del modello $M$.
         \item \textbf{Modello mondiale:} Un modello mondiale $M_W$ è una cappia data da teoria $T$ e modello $M_T$ legati dalla formula: $M_W=\langle T, M_T \rangle$.
+        \end{itemize}
+
+        \subsection{Osservazioni}
+        Nella maggior parte dei modelli mondiali, usati in applicationi CS/AI, è definita solo la teoria.\\
+        Il modello inteso è implicito visto che la rappresentazione mentale è simile tra le perone.\\
+        Questo modello viene seguito quando il costo degli errori è accettabile.
+        \spazio
+        Alcune volte il modello semantico è sviluppato in seguito e non copre totalmente la semantica.
+        \spazio
+        Alcune volte la mancanza di un modello esplicito porta alla genesi di un dialetto.\\
+        Nel caso particolare del IA questa mancanza fa compiere alla macchina azioni imprevedibili perchè impedisce alla macchina di capire quando sbaglia.
+
+    \chapter{Modellazione mentale}
+    \section{Conoscenza semantica}
+    \subsection{Teoria e modelli}
+    \begin{itemize}
         \item \textbf{Denotazione, semantiche:} Diremo che la teoria $T$ denota il suo modello inteso $M$ e scriveremo $T=D(M)$..
             In modo alternativo possiamo dire che il modello $M$ è la semantica intesa da $T$ e scriveremo $M=S(T)$.
+    \end{itemize}
+
+    \subsection{Frasi e fatti}
+    \begin{itemize}
         \item \textbf{Fatto:} Un modello $M={f}$ è un insieme di fatti $f$, dove i fatti sono una rappresentazione analogica una parte della parte di mondo descritta da $M$.
         \item \textbf{Frase:} Una teoria $T={s}$ è un insieme di frasi $s$, dove una frase è una rappresentazione linguistica di un insieme di fatti $f$.
         \item \textbf{Denotazione, semantiche:} Diremo che una frase $s$ denota un fatto $f$ e scriveremo $s=D(f)$.\\
             Alternarivamente, un fatto $f$ è la semantica intesa da $s$ e scriveremo $f=S(s)$.
     \end{itemize}
+
+    \subsection{Osservazioni}
+    Assumiamo sempre che una frase $s \in T$ descriva uno o più fatti $f \in M$.\\
+    La nozione della descrizione linguistica e, in particolare, quella della toeria e della frase, possiamo sempre assumere si riferisca (la nozione) a una descrizione mentale possibilmente resa oggettiva tramite un modello che la descrive.
+    \spazio
+    Non esistono rappresentazioni linguistiche senza referenze al mondo.
+    \spazio
+    Una frase $s=D(f)$ può denotare più fatti la $D$ è una relazione e non necessariamente una funzione.\\
+    In questi casi diremo che $s$ è ambigua o polisemica (polisemica=esprime più significati).
+    \spazio
+    Un fatto $f=S(s)$ può essere la semantica di più frasi $s$, allora anche $S$ è una relazione e non per forza una funzione.\\
+    Per una fatto $f$ ci sono infiti modi di denotarlo e per questo le frasi che denotano lo stesso fatto vengono dette sinonimi.
+    \spazio
+    Se $D$ e $S$ sono entrambe funzioni allora sono una l'inversa dell'altra.
+
+    \subsection{Toerie e modelli}
+    \begin{itemize}
+        \item \textbf{Modello minore:} Siano due modelli $M={f}$ e $\widehat{M}={f}$ tali che $\widehat{M}\subseteq M$.\\
+            Diremmo che $\widehat{M}$ è minore rispetto a $M$ e che un fatto $f$ tale che $f \in M$ e $f \notin \widehat{M}$ è detto al di fuori di $\widehat{M}$.
+        \item \textbf{Teorie e modelli:} Sia $M={f}$ un insieme diu fatti e $T={s}$ un insieme di sequenze.\\
+            Sia $M_T$ un inseieme minore di $M$, allora $T$ è una teoria del modello $M_T$ se e solo se $\forall\ s\in T$ abbiamo $s=D(f) $ per qualsiasi $f \in M_T$.\\
+            Possiamo anche dire che $M_T$ è un modello di $T$. 
+    \end{itemize}
+
+    \subsection{Osservazioni}
+    Esistono modelli e teorie che sono dei singoletti, ma i due eventi sono indipendenti.
+    \spazio
+    Modelli di fatti diversi possono rappresentare lo stesso mondo a diversi livelli di astrazione, analogamente vale anche per le teorie di frasi corrispondenti.
+    \spazio
+    Più il modello è astratto meno dettagli contiene rispetto a un modello meno astratto.\\
+    Un modello meno astratto può comunque rappresentare una gran parte del mondo.
+    \spazio
+    Un modello piccolo rappresenta una piccola parte del mondo, analogamente fanno le teorie.
+
+    \subsection{Correttezza e completezza}
+    \begin{itemize}
+        \item \textbf{Correttezza:} Sia $M_T \subseteq M$, allora una teoria $T$ del modello $M_T$ è corretta rispetto a $M_T$ se e solo se:\\
+            $\forall\ s \in T\ \exists f \in M_T\ |\ f=S(s)$, viene detta incorretta altrimenti.
+        \item \textbf{Completezza:} Sia $M_T \subseteq M$, allora una teoria $T$ di un modello $M_T$ vinene detta dette corretta rispetto a $M_T$ se e solo se $\forall\ f \in M_T\ \exists s \in T\ |\ s=D(f)$, viene detta icompleta altrimenti.
+        \item \textbf{Correttezza e completezza:} Sia $M_T \subseteq M$, allora un teoria $T$ di un modello $M_T$ viene detta corretta e completa se rispetta entrambe le due condizioni.
+    \end{itemize}
+
+    \subsection{Osservazioni}
+    La maggior parte delle volte una toeria risulta incompleta perchè le persone descrivono solo parte di ciò che percepiscono .
+    \spazio
+    La principale motivazione per l'incorreteza delle teorie è la mancanza di motivazioni.
+    \spazio
+    In applicazione dove il costo per errore è elevato bisogna far rispettare sia correttezza sia completezza.
+    \space
+    Alcune volte la completezza non è raggiungibile, perciò bisogna preferira la correttezza alla completezza.
+    \space
+    Solitamente il metro per preferire completezza/correttezza è dato da motivazioni pratiche come studi probabilistici.
 \end{document}
