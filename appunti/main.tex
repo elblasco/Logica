@@ -65,15 +65,15 @@
     \section{Conoscenza semantica}
     \subsection{Teoria e modelli}
     \begin{itemize}
-        \item \textbf{Denotazione, semantiche:} Diremo che la teoria $T$ denota il suo modello inteso $M$ e scriveremo $T=D(M)$..
+        \item \textbf{Denotazione e semantiche:} Diremo che la teoria $T$ denota il suo modello inteso $M$ e scriveremo $T=D(M)$..
             In modo alternativo possiamo dire che il modello $M$ è la semantica intesa da $T$ e scriveremo $M=S(T)$.
     \end{itemize}
 
     \subsection{Frasi e fatti}
     \begin{itemize}
-        \item \textbf{Fatto:} Un modello $M={f}$ è un insieme di fatti $f$, dove i fatti sono una rappresentazione analogica una parte della parte di mondo descritta da $M$.
-        \item \textbf{Frase:} Una teoria $T={s}$ è un insieme di frasi $s$, dove una frase è una rappresentazione linguistica di un insieme di fatti $f$.
-        \item \textbf{Denotazione, semantiche:} Diremo che una frase $s$ denota un fatto $f$ e scriveremo $s=D(f)$.\\
+        \item \textbf{Fatto:} Un modello $M=\{f\}$ è un insieme di fatti $f$, dove i fatti sono una rappresentazione analogica una parte della parte di mondo descritta da $M$.
+        \item \textbf{Frase:} Una teoria $T=\{s\}$ è un insieme di frasi $s$, dove una frase è una rappresentazione linguistica di un insieme di fatti $f$.
+        \item \textbf{Denotazione e semantiche:} Diremo che una frase $s$ denota un fatto $f$ e scriveremo $s=D(f)$.\\
             Alternarivamente, un fatto $f$ è la semantica intesa da $s$ e scriveremo $f=S(s)$.
     \end{itemize}
 
@@ -93,9 +93,9 @@
 
     \subsection{Toerie e modelli}
     \begin{itemize}
-        \item \textbf{Modello minore:} Siano due modelli $M={f}$ e $\widehat{M}={f}$ tali che $\widehat{M}\subseteq M$.\\
+        \item \textbf{Modello minore:} Siano due modelli $M=\{f\}$ e $\widehat{M}=\{f\}$ tali che $\widehat{M}\subseteq M$.\\
             Diremmo che $\widehat{M}$ è minore rispetto a $M$ e che un fatto $f$ tale che $f \in M$ e $f \notin \widehat{M}$ è detto al di fuori di $\widehat{M}$.
-        \item \textbf{Teorie e modelli:} Sia $M={f}$ un insieme diu fatti e $T={s}$ un insieme di sequenze.\\
+        \item \textbf{Teorie e modelli:} Sia $M=\{f\}$ un insieme diu fatti e $T=\{s\}$ un insieme di sequenze.\\
             Sia $M_T$ un inseieme minore di $M$, allora $T$ è una teoria del modello $M_T$ se e solo se $\forall\ s\in T$ abbiamo $s=D(f) $ per qualsiasi $f \in M_T$.\\
             Possiamo anche dire che $M_T$ è un modello di $T$. 
     \end{itemize}
@@ -128,4 +128,40 @@
     Alcune volte la completezza non è raggiungibile, perciò bisogna preferira la correttezza alla completezza.
     \space
     Solitamente il metro per preferire completezza/correttezza è dato da motivazioni pratiche come studi probabilistici.
+
+    \section{Semantica linguistica}
+    \subsection{Linguaggio e dominio}
+    \begin{itemize}
+        \item \textbf{Dominio:} Un dominio $D=\{M\}$ è un insieme di modelli $M$.
+        \item \textbf{Linguaggio:} Un linguaggio $L=\{T\}$ è un insieme di teorie $T$.
+        \item \textbf{Denotazione e semantiche:}  Diciamo che un linguaggio $L=\{T\}$ denota un dominio $D=\{M\}$ se descrive tutti i suoi modelli e scriveremo $L=Den(D)$.\\
+            Possiamo anche dire che un dominio $D$ è la semantica intesa da $L$ scrivendo $D=S(L)$.
+    \end{itemize}
+
+    \subsection{Osservazioni}
+    Il dominio è definito come uno spazione o qualsiasi cosa noi possiamo immaginare, cosa non possibile con i modelli in quanto devono essere una rappresentazione della realtà.
+    \spazio
+    Una situazione può essere modellata da diversi domini.\\
+    Uno stesso dominio può essere descritto da linguaggi differenti che si concentrano su aspetti diversi.\\
+    Queste due proprietà vengono dette eterogeneità semantica.
+    \spazio
+    Un dominio è definito come $D=\{M\}$, ma ricordando la definizione di insieme di modelli come $M=\{f\}$ con $f \in M$ e $M \in D$.\\
+    Risulta che $M \subseteq D$, possiamo quindi dire che il dominio è l'insieme potenza (si, in italiano powerset è insieme potenza) dell'insieme dei fatti $\{f\}$.
+    \spazio
+    Un linguaggio definito $L=\{T\}$ è un insieme di modelli $T$, un linguaggio può anche essere modllato come l'insieme $L=\{s\}$ di tutte le frasi $s \in L$ appartenenti alle teorie $T \in L$.\\
+    Concludiamo che $T \subseteq L$, ne risulta che un linguaggio è l'insieme potenza degll'insieme $\{s\}$.
+
+    \section{Modellazione mentale}
+    Possiamo pensare al modello mentale come formato da 4 componeneti:
+    \begin{enumerate}
+        \item \textbf{Linguaggio:} lo spazio di tutte le possibili teorie
+        \item \textbf{Dominio:} lo spazio di tutti i possibili casi
+        \item \textbf{Modello:} un insieme di fatti
+        \item \textbf{Teoria:} un insieme di frasi che descrivono i fatti nel modello.
+    \end{enumerate}
+
+    \subsection{Gap semantico}
+    Il mondo causa la generazione del modello mentale con i suoi 4 componenti.\\
+    Il modelo mentale rappresenta sia il mondo analogico che quello linguistico, ma si discosterà sempre dal mondo per via del gap semantico.\\
+    Questo gap è dato dall'imperfezione umana, dai limiti dei nostri sensi e della nostra lingua.
 \end{document}
