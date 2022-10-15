@@ -1,6 +1,7 @@
 \documentclass{book}
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{hyperref}
+\usepackage{qtree}
 \newcommand{\spazio}{\vspace{1em} \newline}
 
 \title{Logica 2022/2023}
@@ -185,6 +186,86 @@
             \end{itemize}
     \end{itemize}
 
-    \section{Osservazioni}
-    
+    \subsection{Algoritmo}
+    Segue il processo Il linguaggio naturale ha una struttura molto più complessa per definire il linguaggio:
+    \begin{enumerate}
+        \item Dai termini primitivi definire di cosa si sta parlando.
+        \item Con i termini complessi si va a definire come definire le entità selezionate.
+        \item Con le frasi atomiche si definiscono le proprietà delle entità da testare.
+        \item Dalle frasi primitive si vano a definire le verità basiche.
+        \item Con le frasi complesse si definisce come comporre le descrizioni complesse.
+        \item Con i termini atomici costruire altri termini atomici dipendeti.
+    \end{enumerate}
+
+    \subsection{Osservazioni}
+    \begin{itemize}
+        \item La sintassi permette di definire frasi dichiarative per composizione.
+        \item Il linguaggio naturale ha una struttura molto più complessa ma può essere ridotta ad una sintassi formale.
+    \end{itemize}
+
+    \subsection{Ambiguità di rappresentazione}
+    \begin{itemize}
+        \item Ci sono infiniti modelli che rappresentano la stessa situazione nel mondo reale.
+        \item Ci sono infinite teorie per la stessa rappresentazione analogica.
+        \item Tutti i modelli e le teorie sono apprissimati.
+        \item Teorie e modelli diversi seppur rappresentando la stessa cosa possono essere mutualmente esclusivi.
+        \item E' importante non assumere che la nostra rappresentazione mentale sia la stessa degli altri.
+    \end{itemize}
+
+    \section{Linguaggi formali e semi-formali}
+
+    \subsection{Sintassi formale}
+    \begin{itemize}
+        \item Una sintassi si dice \textbf{formale} se:
+        \begin{itemize}
+            \item L'alfabeto è riconoscibile.
+            \item L'insieme di costruttori è finito.
+            \item Esiste un algoritmo per verificare la correttezza di un frase.
+        \end{itemize}
+        \item \textbf{Linguaggio informale:} una sintassi che non è formale è detta informale e il linguaggio che genera è detto \textbf{linguaggio informale}.
+        \item \textbf{Formula ben formulata (wff):} una frase generata da una sintassi formale è detta formula oppure formula ben formata.\\
+            Una wff $w_1$ è definita sottoformula di una wff $w_2$ se $w_1$ è stata usata per costruire $w_2$.
+    \end{itemize}
+
+    \subsection{Esempio}
+    Definiamo un alfabeto riconosciuto:
+    \begin{itemize}
+        \item Frasi primitive = A, B, C, Q, R, \dots
+        \item Connettivi = $\land$, $\lor$, $\supset$
+        \item Punteggiatura = (, )
+    \end{itemize}
+    Definiamo un insieme finito di costruttori:
+    \begin{itemize}
+        \item Ogni frase primitiva è una wff.
+        \item Se A e B sono delle wff in L vale che:
+        \begin{itemize}
+            \item A $\land$ B è una wff in L.
+            \item A $\lor$ B è una wff in L.
+            \item A $\supset$ B è una wff in L.
+        \end{itemize}
+        \item Se A è una wff in L allora lo è anche (A).
+    \end{itemize}
+    Ora posso prendere in esempio la stringa (A $\supset$ (B $\land$ C)) $\lor$ D e costruire l'albero per rappresentarla.
+    \begin{center}
+        \Tree [.{(A $\supset$ (B $\land$ C)) $\lor$ D} [.{A $\supset$ (B $\land$ C)}
+                [.A ] [$\supset$ ] [.{(B $\land$ C)} 
+                    [.B ] [$\land$ ] [.C ] ] ] 
+                [.$\lor$ ] [.D ] ]
+    \end{center}
+
+    \subsection{Linguaggi formali}
+    \begin{itemize}
+        \item Un linguaggio si dice \textbf{formale} se rispetta le seguenti proprietà:
+        \begin{itemize}
+            \item Le formule ed i termini di $L$ sono definiti da formule sintattiche.
+            \item Il dominio $D$ denotato da $L$ è formalmente definito.\\
+                Chiamiamo $D$ il dominio di interpretazione di $L$.
+            \item La denotazione $Den$ di $L$, indicata con $L=Den(D)$ è una funzione:
+            \begin{center}
+                $I:L \to D$
+            \end{center}
+            $I$ è chiamata funzione di interpretazione di $L$.
+        \end{itemize}
+        \item Un linguaggio non formale definito da sintassi formale è chiamato \textbf{linguaggio semi-formale}.
+    \end{itemize}
 \end{document}
