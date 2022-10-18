@@ -212,7 +212,7 @@
         \item E' importante non assumere che la nostra rappresentazione mentale sia la stessa degli altri.
     \end{itemize}
 
-    \section{Linguaggi formali e semi-formali}
+    \section{Linguaggi semi-formali}
 
     \subsection{Sintassi formale}
     \begin{itemize}
@@ -268,4 +268,186 @@
         \end{itemize}
         \item Un linguaggio non formale definito da sintassi formale è chiamato \textbf{linguaggio semi-formale}.
     \end{itemize}
+
+    \section{Linguaggi formali}
+    Riprendendo la definizione precedente.
+    \begin{itemize}
+        \item Un linguaggio si dice \textbf{formale} se rispetta le seguenti proprietà:
+        \begin{itemize}
+            \item Le formule ed i termini di $L$ sono definiti da formule sintattiche.
+            \item Il dominio $D$ denotato da $L$ è formalmente definito.\\
+                Chiamiamo $D$ il dominio di interpretazione di $L$.
+            \item La denotazione $Den$ di $L$, indicata con $L=Den(D)$ è una funzione:
+            \begin{center}
+                $I:L \to D$
+            \end{center}
+            $I$ è chiamata funzione di interpretazione di $L$.
+        \end{itemize}
+    \end{itemize}
+
+    \subsection{Linguaggi formali con frasi e termini atomici}
+    \begin{itemize}
+        \item L'interpretazione di un termine è un elemento del dominio.
+        \item E' possibile avere sinonimi ma non polisemia.
+        \item La funzione simbolica è usata per generare termini complessi.\\
+                Viene usata una funzione n-aria che denota lo spazio di tutti i possibili termini che possono essere costruiti. 
+        \item Le entità generate da queste funzioni sono tuple (n+1)-arie.
+    \end{itemize}
+
+    \subsection{Esempi}
+    \subsubsection{1}
+    Sia $L$ un linguaggio formale, potrebbe essere eroneamente definito come segue:
+    \begin{itemize}
+        \item \textbf{Frasi dell'alfabeto} = \{A,B\}
+        \begin{itemize}
+            \item A = "Fausto ha meno di 25 anni"
+            \item B = "Fausto è un professore di IA"
+        \end{itemize}
+        \item \textbf{Regole di fomrazione delle frasi} = A, B sono le sole formule.
+        \item \textbf{D} = \{ $f_1$ = "il fatto cheFausto ha 60 anni", $f_2$ = "il fatto cheFausto è un professore di IA" \}
+        \item \textbf{Interpretazione} $I:L \to D$
+        \begin{itemize}
+            \item $I(A)=???$ $I$ non è una funzione interpretativa di $L$, devo aggiungere fatti o abbandonare $A$.
+            \item $I(B)=f_2$
+        \end{itemize}
+    \end{itemize}
+
+    \subsubsection{2}
+    Il linguaggio formale $L$ che prima era sbagliato potrebbe essere ridefinito come:
+    \begin{itemize}
+        \item \textbf{Frasi dell'alfabeto} = \{A,B\}
+        \begin{itemize}
+            \item A = "Fausto ha meno di 25 anni"
+            \item B = "Fausto è un professore di IA"
+        \end{itemize}
+        \item \textbf{Regole di fomrazione delle frasi} = A, B sono le sole formule.
+        \item \textbf{D} = \{ $f_1$ = "il fatto cheFausto ha 60 anni", $f_2$ = "il fatto cheFausto è un professore di IA", $f_3$ = "il fatto che fausto abbia meno di 25 anni" \}
+        \item \textbf{Interpretazione} $I:L \to D$
+        \begin{itemize}
+            \item $I(A)=f_3$
+            \item $I(B)=f_2$
+        \end{itemize}
+    \end{itemize}
+
+    \subsection{Proposizioni}
+    \begin{itemize}
+        \item \textbf{Proposizione(secondo Aristotele):} una proposizione è una frase che afferma o nega un predicato.
+        \item \textbf{Proposizione:} è una formula che può essere o vera o falsa.
+    \end{itemize}
+
+    \subsection{Osservazioni}
+    Consideriamo le tre seguenti frasi.
+    \begin{enumerate}
+        \item A = "Fausto ha meno di 25 anni"
+        \item B = "Fausto è un professore di IA"
+        \item C = "Fausto ha 60 anni"
+    \end{enumerate}
+    Possiamo interpretare queste frasi come dei fatti detti $I(A)=f_1$, $I(B)=f_2$, $I(C)=f_3$.\\
+    Possiamo anche interpretare il loro valore di verità $I\prime (A)=F$, $I\prime (B)=T$, $I\prime (C)=T$.\\
+    Abbiamo cambiato il dominio di interpretazione da $D$ a $D\prime$, quindi dobbiamo anche cambiiare la funzione:
+    \begin{center}
+        $I:L \to D \Rightarrow I\prime:L \to D^L$
+    \end{center}
+    Dove $D=\{f\}$ e $D^L$ è un insieme di due distinti valori di proposizioni che stanno per vero, falso.\\
+    Riferendoci all'esempio precedente i due domini di interpretazione $D$ e $D^L$ intendono due insiemi molto diveri.
+    \begin{enumerate}
+        \item $D$ è l'insieme dei fatti che descrivono il mondo.
+            \begin{center}
+                $D = \{I(A)=f_1, I(B)=f_2, I(C)=f_3\}$
+            \end{center}
+        \item $D^L$ è l'insieme di giudizi che dicono quali sono i casi nel nostro mondo.
+            \begin{center}
+                $D^L = \{I\prime(A)=F, I\prime(A)=F, I\prime(B)=F, I\prime(B)=F,I\prime(C)=F, I\prime(C)=F\}$
+            \end{center}
+    \end{enumerate}
+    Il passo tra $D$ e $D^L$ risolve il problema dei domini, possiamo affermare che un fatto certo non può essere casuale.
+
+    \subsection{Linguaggio formale con proposizioni}
+    \subsection{Esempio}
+    \begin{itemize}
+        \item \textbf{Alfabeto} = \{$A$, $B$\}
+        \item \textbf{Dominio} D = \{0, 1\}
+        \item \textbf{Interpretazione} $I:L \to D$
+        \item $\textbf{T}_1$ = \{B\}, $\textbf{T}_2$ = \{A, B\}
+        \item $\textbf{M}_1$ = \{I(B)\}, $\textbf{M}_2$ = \{I(A), I(B)\}
+    \end{itemize}
+
+    \subsection{Osservazioni}
+    Consideriamo l'esempio precedente:
+    \begin{itemize}
+        \item $L$ = \{A, B\}
+        \item $T_1$ =\{B\} $T_2$ = \{A, B\}
+        \item $D$ = \{1, 0\}
+        \item I1(L) = \{I1(B)=1, I1(A)=0\} = \{I1(B)\}: I1 è un modello $M_1$ di $T_1$ ma non di $T_2$.
+        \item I2(L) = \{I2(B)=1, I2(A)=1\} = \{I2(B), I2(A)\}: I2 è un modello $M_2$ di $T_1$ e di $T_2$.
+        \item I3(L) = \{I3(B)=0, I3(A)=1\} = \{I3(A)\}: I3 non è un modello $M$ di $T_1$ e $T_2$.
+        \item I4(L) = \{I4(B)=0, I4(A)=0\} = $\emptyset$: I4 non è un modello $M$ di $T_1$ né di $T_2$.
+    \end{itemize}
+    Una teoria viene considerata incompleta/parziale se descrive il vero valore \textbf{di un sotto insieme} di formule atomiche del linguaggio.\\
+    Un modello è un interpretazione che soddisfa tutte le formule di una teoria.\\
+    Una teoria può avere più modelli.
+
+    \subsection{La negazione}
+    Sia $L$ un linguaggio formale, $I:L \to D$ la sua funzione di interpretazione con $D$ = \{0, 1\} e sia $\lnot$ un simbolo primitivo dell'alfabeto allora:
+    \begin{itemize}
+        \item Se I(A)=1 allora I($\lnot$A)=0
+        \item Se I(A)=0 allora I($\lnot$A)=1
+    \end{itemize}
+    Dove $\lnot$A si legge come "non A".
+
+    \subsection{Osservazione}
+    Una teoria $T$ che contiene sia la formula A che $\lnot$A non ha modello e viene detta \textbf{contradditoria}.
+
+    \subsection{Relazione di implicazione}
+    Sia $L$ un linguaggio formale, $I:L \to D$ la sua funzione di interpretazione con $D$ = \{0, 1\}, sia $T \subseteq L$ una teoria formale, sia $M \subseteq D$ un modello per $T$ allora $\models_L$ è la funzione di implicazione che associa cosa è vero in $M$ con le wff in $T$.
+    \begin{center}
+        $\models_L \subseteq M \times T$
+    \end{center}
+    Possiamo anche scrivere:
+    \begin{center}
+        $M \models_L T$
+    \end{center}
+    Dicendo che $M$ implica $T$.
+
+    \subsection{Negazione con implicazione}
+    Sia $L$ un linguaggio formale, la funzione di interpretazione $I:L \to D$ \dots\\
+    Allora per ogni formula atomica $A \in L$:
+    \begin{itemize}
+        \item I $\models$ A se I(A)=True
+        \item I $\models$ $\lnot$A se non è vero che I $\models$ A (I $\not\models$ A)
+    \end{itemize}
+
+    \subsection{Osservazioni}
+    \begin{itemize}
+        \item Una teoria $T$ che contiene sia la formula A che $\lnot$A non ha modello e viene detta \textbf{contradditoria}.
+        \item Per ogni formula A la formula A$\land \lnot$A viene detta \textbf{contraddizione}.
+        \item Per ogni formula A la formula A$\lor \lnot$A viene detta \textbf{tautologia}.
+    \end{itemize}
+
+    \section{Modello mentale formale}
+    \subsection{Nozioni}
+    Un modello formale è un modello formale in cui:
+    \begin{itemize}
+        \item La relaziona tra formule atomiche ed il dominio di interpretazione sono formalizzate da una funzione di interpretazione.
+        \item Le relazione tra modello e teoria è formalizzata dalla relazione di implicazione.
+    \end{itemize}
+    La costruzione di un modello mentale formalizzato segue i seguenti step:
+    \begin{enumerate}
+        \item Il linguaggio è dato.
+        \item Dominio e funzione di interpretazione sono dati.
+        \item La funzione di implicazione è data.
+        \item Un modello è costruito assumendo che un certo insieme di fatti sia vero.
+        \item Ci sono \textbf{solo} 2 usi per un modello formale:
+        \begin{enumerate}
+            \item \textbf{Modellazione (apprendimento):} il modello formale viene creato/esteso.
+            \item \textbf{Ragionamento:} il modello formale viene usato per risolvere delle query.
+        \end{enumerate}
+    \end{enumerate}
+    Un sistema logic-based che ragiona su conoscenze e dati ha due componenti principali:
+    \begin{enumerate}
+        \item Una conoscenza di base (\textbf{KB}) tale che KB$\subseteq$L che è una teoria del mondo.
+        \item Un sistema di ragionamento che risponde alle query grazie al contenuto del KB.
+    \end{enumerate}
+
+    \section{Esercizi}
 \end{document}
