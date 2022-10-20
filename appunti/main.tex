@@ -570,4 +570,58 @@
         \item Simmetrica
         \item Transitiva
     \end{itemize}
+    Le relazioni di equivalenza sono spesso indicate con $\sim$ oppure con $\equiv$.
+
+    \subsection{Partizione di insiemi}
+    Sia A un insieme , una partizione di A è una famiglia F di sottoinsiemi non vuoti tali che:
+    \begin{itemize}
+        \item L'unione di tutti i sottoinsiemi sia A.
+        \item I sottoinsiemi sono disgiunti a coppie.
+    \end{itemize}
+    Ogni elemento di A apprtiene esattamente ad un insieme di F.
+
+    \subsection{Classe di equivalenza}
+    Sia A un insieme e $\equiv$ una relazione di equivalenza su A, dato x$\in$A definiamo classe di equivalenza  X l'insieme di elementi x$\prime \in$A tale che x$\prime \equiv$x, formalmente:
+    \begin{center}
+        X=\{x$\prime | $x$\prime \equiv$x\}
+    \end{center}
+    E' possibile prendere ogni elemento di x per ottenere una classe di equivalenza X, la classe di equivalenza è denotata anche da [x].
+
+    \subsection{Insieme quoziente}
+    L'insieme quozienete di A è l'insieme delle classi di equivalenza definite da $\equiv$ su A, denotato da A/$\equiv$
+
+    \subsubsection{Teorema}
+    Data una relazione di equivalenza $\equiv$ su A, la classe di equivalenza definita da $\equiv$ su Aè una partizione di A.
+
+
+    Similmente, data una partizione di A, la relazione R definita come xRx$\prime$ se e solo se x e x$\prime$ appartengono allo stesso sottoinsieme, e una relazione di equivalenza.
+
+    \subsection{Relazione di ordinamento}
+    Sia A un insieme e R una relazione binaria su A.
+
+
+    R è un ordinamento \underline{parziale}, denotato come $\leq$, se:
+    \begin{itemize}
+        \item \textbf{Riflessiva:} a$\leq$a
+        \item \textbf{Anti-simmetrica:} a$\leq$b e b$\leq$a allora a=b.
+        \item \textbf{Transitiva:} a$\leq$b e b$\leq$c allora a$\leq$c.
+    \end{itemize}
+    Se la relazione vale per tutti gli a,b$\in$A allora si dice \underline{ordinamento totale}.\\
+    Una relazione è in \underline{ordine stretto}, denotata con $<$, se:
+    \begin{itemize}
+        \item \textbf{Transitiva:} a$<$b e b$<$c allora a$<$c.
+        \item Per ogni a,b$\in$A o a$<$b o b$<$a oppure a=b.
+    \end{itemize}
+
+    \section{Funzioni}
+    Dati due insiemi A e B, una funzione f da A a B è una relazione che associa ad ogni elemento di a in A esattamente un elemento un elemento b in B, denotata con:
+    \begin{center}
+        f: A $\to$ B
+    \end{center}
+    Il dominio di f è tutto l'insieme A.\\
+    L'immagine di ogni elemento a in A è l'elemento di b in B tale che b=f(a).\\
+    Il codominio di f è un sottoinsiemi di B, definito come segue:
+    \begin{center}
+        $\text{Im}_\text{f}$=\{b$\in$B $|$ $\exists$ a$\in$A tale che b=f(a)\}
+    \end{center}
 \end{document}
