@@ -6,3 +6,6 @@
 *.gz
 *.out
 *.toc
+
+# Domande
+/domande
