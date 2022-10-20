@@ -2,6 +2,7 @@
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{hyperref}
 \usepackage{qtree}
+\usepackage{amsmath}
 \newcommand{\spazio}{\vspace{1em} \newline}
 
 \title{Logica 2022/2023}
@@ -97,7 +98,7 @@
         \item \textbf{Modello minore:} Siano due modelli $M=\{f\}$ e $\widehat{M}=\{f\}$ tali che $\widehat{M}\subseteq M$.\\
             Diremmo che $\widehat{M}$ è minore rispetto a $M$ e che un fatto $f$ tale che $f \in M$ e $f \notin \widehat{M}$ è detto al di fuori di $\widehat{M}$.
         \item \textbf{Teorie e modelli:} Sia $M=\{f\}$ un insieme diu fatti e $T=\{s\}$ un insieme di sequenze.\\
-            Sia $M_T$ un inseieme minore di $M$, allora $T$ è una teoria del modello $M_T$ se e solo se $\forall\ s\in T$ abbiamo $s=D(f) $ per qualsiasi $f \in M_T$.\\
+            Sia $M_T$ un insieme minore di $M$, allora $T$ è una teoria del modello $M_T$ se e solo se $\forall\ s\in T$ abbiamo $s=D(f) $ per qualsiasi $f \in M_T$.\\
             Possiamo anche dire che $M_T$ è un modello di $T$. 
     \end{itemize}
 
@@ -449,5 +450,115 @@
         \item Un sistema di ragionamento che risponde alle query grazie al contenuto del KB.
     \end{enumerate}
 
-    \section{Esercizi}
+    \chapter{Teoria degli insiemi}
+    \section{Insieme}
+    \textbf{Insieme:} una collezione di elementi la cui descrivono deve essere non ambigua ed univoca
+
+    \subsection{Concetti di base}
+    \begin{itemize}
+        \item \textbf{Insieme vuoto:} è l'insieme che non contiene elementi e si indica $\emptyset$.
+        \item \textbf{Appartenenza:} a$\in$A indica che l'elemento a appartiene all'insieme A.
+        \item \textbf{Non appartenenza:} è il contrario dell'appartenenza e si indica a$\notin$A.
+        \item \textbf{Uguaglianza:} A = B se e solo A e B contengono gli stessi elementi.
+        \item \textbf{Non uguaglianza:} se A e B non sono ugualu si indica con A $\neq$ B.
+        \item \textbf{Sottoinsieme:} A$\subseteq$B indica che tutti gli elementi di A appartenegono anche a B.
+        \item \textbf{Sottoinsieme proprio:} se e solo se A$\subseteq$B e A$\neq$B allora si dice che A$\subset$B.
+    \end{itemize}
+
+    \subsection{Power set}
+    \textbf{Definizione:} il power set di un insieme è l'insieme contenente tutti i sottoinsiemi di A.
+
+
+    Se l'insieme ha $n$ elementi il suo power set ha $2^n$ elementi.
+
+    \subsection{Operazioni sugli insiemi}
+    \subsubsection{Unione}
+    Dati due insiemi A e B la loro unione A$\cup$B è defina come l'insieme di tutti gli elementi appartenenti sia ad A si che B.
+
+    \subsubsection{Intersezione}
+    Dati due insiemi A e B definiamo la loro intersezione A$\cap$B come l'insieme che contiene gli elementi che appartengono contemporanemente ad A e a B.
+
+    \subsubsection{Differenza}
+    Dati due insiemi A e B la loro differenza A$-$B è l'insieme A a cui sono stati tolti tutti gli elementi che aveva in comune con B.
+
+    \subsubsection{Complemento}
+    Dati due insiemi A e B tali che A$\subseteq$B defininiremo il complemenetare di A in B come l'insieme di tutti gli elementi che appartengono a B ma non ad A, lo indicheremo con $\bar{\text{A}}$ oppure $\text{C}_{\text{B}}\text{A}$.
+
+    \subsection{Proprietà delle operazioni}
+    Con lo stesso insieme:
+    \begin{itemize}
+        \item A$\cap$A=A
+        \item A$\cup$A=A
+    \end{itemize}
+    Commutative:
+    \begin{itemize}
+        \item A$\cap$B=B$\cap$A
+        \item A$\cup$B=B$\cup$A
+    \end{itemize}
+    Con l'insieme vuoto:
+    \begin{itemize}
+        \item A$\cap \emptyset$=$\emptyset$
+        \item A$\cup \emptyset$=A
+    \end{itemize}
+    Associative:
+    \begin{itemize}
+        \item (A$\cap$B)$\cap$C=A$\cap$(B$\cap$C)
+        \item (A$\cup$B)$\cup$C=A$\cup$(B$\cup$C)
+    \end{itemize}
+    Dsitributive:
+    \begin{itemize}
+        \item A$\cap$(B$\cup$C)=(A$\cap$B)$\cup$(A$\cap$C)
+        \item A$\cup$(B$\cap$C)=(A$\cup$B)$\cap$(A$\cup$C)
+    \end{itemize}
+    Leggi di De Morgan:
+    \begin{itemize}
+        \item $\overline{\text{A} \cup \text{B}}$=$\bar{\text{A}} \cap \bar{\text{B}}$
+        \item $\overline{\text{A} \cap \text{B}}$=$\bar{\text{A}} \cup \bar{\text{B}}$
+    \end{itemize}
+
+    \subsection{Prodotto cartesiano}
+    Dati deu insiemi A e B, definiamo il prodotto cartesiano di A e B come l'insieme delle tuple ordinate (a,b) tali che a$\in$A e b$\in$B.\\
+    Formalmente si può esprimere come:
+    \begin{center}
+        $A \times B=\{(\text{a,b}) : \text{a} \in \text{A and b} \in \text{B}\}$
+    \end{center}
+
+    \subsubsection{Oservazioni}
+    \begin{itemize}
+        \item A$\times$B$\neq$B$\times$A
+        \item Il prodotto cartesiano può essere applicato ad $n$ insiemi di insiemi $\text{A}_1$, $\text{A}_2$, \dots , $\text{A}_n$.\\
+        $\text{A}_1 \times \text{A}_2 \times \dots \times \text{A}_n$ sarà l'insieme ordinato di n-tuple ($\text{x}_1$, \dots , $\text{x}_n$) dove $\text{x}_i \in \text{A}_i$ per ogni $i=1 \dots n$
+    \end{itemize}
+
+    \section{Relazioni}
+    \textbf{Definizione:} una relazione R dall'insieme A ad un insieme B è un sottoinsieme del prodotto cartesiano di A e B: R$\subseteq$A$\times$B.
+
+
+    Se (x,y)$\in$R scriveremo xRy e diremmo "x è R-relazionato a y".
+
+
+    Una relazione binaria su un insieme A è un sotto insieme R$\subseteq$A$\times$A.
+    \vspace{4ex}
+
+    \noindent
+    Data una relazio e R da A a B:
+    \begin{itemize}
+        \item Il dominio di R è l'insieme $Dom(\text{R})$=\{a$\in$A $|$ esiste un b$\in$B che aRb\}
+        \item Il codominio di R è l'insieme $Cod(\text{R})$=\{b$\in$B $|$ esiste un a$\in$A che aRb\}
+    \end{itemize}
+
+    \subsection{Relazione inversa}
+    Sia R una relazione da A a B, la relazione inversa di R è la relazione $\text{R}^{-1} \subseteq \text{B} \times \text{A}$ definita come:
+    \begin{center}
+        $\text{R}^{-1}$=\{(b,a) $|$ (a,b)$\in$R\}
+    \end{center}
+
+    \subsection{Proprietà delle relazioni}
+    Sia R una relazione binaria A, allora R può avere le seguenti proprietà:
+    \begin{itemize}
+        \item \textbf{Riflessiva:} se e solo se aRa per ogni a$\in$A.
+        \item \textbf{Simmetrica:} se e solo se aRb implica che bRa per ogni a,b$\in$A.
+        \item \textbf{Transitiva:} se e solo se aRb e bRc implica che aRc per ogni a,b,c$\in$A.
+        \item \textbf{Anti-simmetrica:} se e solo se aRb e bRa implica che a=b per ogni a,b$\in$A.
+    \end{itemize}
 \end{document}
