@@ -643,4 +643,169 @@
     \end{itemize}
 
     \chapter{Ragionamento formale}
+    \section{Logiche}
+    \begin{itemize}
+        \item \textbf{Logica:} una logca L è una tripla $\mathcal{L}$=$\langle L, I, \models \rangle$ dove L è un linguaggio formale, I una funzione di interpretazione I: L $\to$ D e $\models$ una relazione di implicazione.
+        \item \textbf{Calcolo logico:} un calcolo logico $\mathcal{C}_\mathcal{L}$ è una tupla $\mathcal{C}_\mathcal{L} = \langle \mathcal{L}, \mathcal{P} \rangle$ dove $\mathcal{L}$ è una logica e $\mathcal{P}$ un insieme di domande.
+        \item \textbf{Ragionamento logico:} dato un calcolo logico $\mathcal{C}_\mathcal{L}$, con ragionamento logico indichiamo il processo con il quale si risolve un problema applicando un algoritmo non per forza terminale.
+    \end{itemize}
+
+    \subsection{Logica proposizionale}
+    Le caratteristiche di questa logica sono:
+    \begin{itemize}
+        \item Un linguaggio proposizionale contiene solo proposizioni primitive.
+        \item Le formule sono interpretate attraverso un dominio di giudizi.
+        \item Le formule complesse sono formate usando un numero arbitrario di connettivi proposizionali.
+        \item I connettivi proposizionali possono essere.
+        \begin{itemize}
+            \item $\lnot$ letto come "not" per la negazione.
+            \item $\land$ letto come "and" per le congiunzioni.
+            \item $\lor$ letto come "or" per le disgiunzioni.
+            \item $\Longrightarrow$ letto come "implies" per le implicazioni.
+            \item $\Longleftrightarrow$ letto come "if and only if" per le equivalenze.
+            \item $\uparrow$ letto come "nand" per le congiunzioni negate.
+            \item $\downarrow$ letto come "nor" per le disngiunzioni negate.
+        \end{itemize} 
+    \end{itemize}
+    La logica proposizionale è utile per problemi che possono essere formalizzati per essere indipendenti da strutture interne.
+    
+    \subsection{Logica del primo ordine}
+    Le caratteristiche di questa logica sono:
+    \begin{itemize}
+        \item Termini e formule sono complesse.
+        \item Molto spesso le formule primitive non sono parte del linguaggio.
+        \item Termini e formule atomiche sono interpretate su un dominio di entità e fatti.\\
+            Le formule complesse sono interpretate attraverso un dominio di giudizi.
+        \item Le formule complesse sono formate usando connettivi proposizionali e un numero arbitrario di quanificatori.
+        \item I quantificatori sono:
+        \begin{itemize}
+            \item $\forall$ letto come "for all" per quantificare tutti i termini di un insieme.
+            \item $\exists$ letto come "there exists" per dire se esiste almeno un elemento in un insieme.
+        \end{itemize}
+    \end{itemize}
+    La logica del primo ordine è utile ogni volta la struttura interna dei termini e la loro composizione per formare la verità o la falsità di una formula atomica è importante, quindi quando è importante essere molto descrittivi.
+
+    \subsection{Logica descrittiva}
+    Le caratteristiche di questa logica sono:
+    \begin{itemize}
+        \item Le logiche proposizionali + una logica del primo ordine permettono di usare solo formule atomiche e non primitive.
+        \item Solo predicati unari e binari sono permessi.
+        \begin{itemize}
+            \item Predicati unari detti classi.
+            \item Predicati binari detti ruoli.
+        \end{itemize}
+        \item Termini e formule sono interpretati su un dominio di entità e fatti.
+        \item Le forule complesse sono formate usando connettivi proposizionali e due operatori modali.
+        \item Gli operatori modali sono:
+        \begin{itemize}
+            \item $\exists R$ letto come "there exists an element of \dots" per quantificare l'esistenza su un codominio di ruoli.
+            \item $\forall R$ letto come "for all elements of" per la quantificazione universale su un codominio di ruoli.
+        \end{itemize}
+    \end{itemize}
+    I modelli di logica descrittiva permettono di rappresentare e ragionare sui diagrammi ER, diagrammi UML e knowledge graph.
+
+    \section{Problemi di ragionamento}
+    Il ragionamento è usato per ultimare alcuni compiti come:
+    \begin{itemize}
+        \item Verifica del modello.
+        \item Soddisfacibilità.
+        \item Validità.
+        \item soddisfacibilità.
+        \item Conseguenza lagica.
+        \item Equivalenza logica.
+    \end{itemize}
+
+    \subsection{Tabelle di verità}
+    Sono il modo per dimostrare la verità dei fatta oppure di una proposizione che descrive quei fatti.\\
+    Permettono di descriveve ogni possibile modello M di un certo dominio D, questo significa costruire ogni possibile combinazione di fatti.\\
+    Infatti esistono $2^n$ possibili modelli con $n$ il numero di fatti nel dominio.\\
+    Due frasi che rappresentano lo stesso fatto avranno lo stesso valore e possono essere rappresentate da una sola proposizione.
+    \subsubsection{Esempi}
+    \begin{minipage}{0.33333\textwidth}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            A & B & A$\land$B\\
+            \hline
+            1 & 1 & 1\\
+            \hline
+            1 & 0 & 0\\
+            \hline
+            0 & 1 & 0\\
+            \hline
+            0 & 0 & 0\\
+            \hline
+        \end{tabular}
+    \end{minipage}
+    \begin{minipage}{0.33333\textwidth}
+        \begin{tabular}{|c|c|}
+            \hline
+            A & $\lnot$A\\
+            \hline
+            0 & 1\\
+            \hline
+            1 & 0\\
+            \hline
+        \end{tabular}
+    \end{minipage}
+    \begin{minipage}{0.33333\textwidth}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            A & B & A$\uparrow$B\\
+            \hline
+            1 & 1 & 0\\
+            \hline
+            1 & 0 & 1\\
+            \hline
+            0 & 1 & 1\\
+            \hline
+            0 & 0 & 1\\
+            \hline
+        \end{tabular}
+    \end{minipage}
+
+    \subsection{Verifica del modello}
+    Data un teoria T e un modello M, la verifica consiste nel verificare che qualsiasi sia M possa essere un modello valido per T, equivale a verificare che M$\models$T.
+
+    \subsection{Soddisfacibilità}
+    Una teoria T viene detta soddisfacibile se esiste un modello rappresentato da T, invece se viene dato T bisogna verificare se esiste o meno un modello M che coincide con un modello descritto da T.
+
+    \subsubsection{Esempio}
+    Dobbiamo compilare la tabella di verità di A$\land$B per vedere se la formula è soddisfacibile o meno.
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            A & B & A$\land$B\\
+            \hline
+            1 & 1 & 1\\
+            \hline
+            1 & 0 & 0\\
+            \hline
+            0 & 1 & 0\\
+            \hline
+            0 & 0 & 0\\
+            \hline
+        \end{tabular}
+    \end{center}
+    La formula è soddisfatta visto che c'è almeno un modello che implica la formula, ovvero che è vero.
+
+    \subsection{Validità}
+    Una teoria T è detta valida se ogni modello possibile è rappresentato da T.\\
+    Una teoria T è detta valida se ogni modello M del nostro dominio soddisfa T, e.g.:
+    \begin{center}
+        $\forall$M, M$\models$T
+    \end{center}
+
+    \subsubsection{Esempio}
+    Computiamo ora la tabella di verità di $\lnot$(A$\land \lnot$A) per verificare che la formula sia valida o meno.
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            A & $\lnot$A & $\lnot$(A$\land \lnot$A)\\
+            \hline
+            1 & 0 & 1\\
+            \hline
+            0 & 1 & 1\\
+            \hline
+        \end{tabular}
+    \end{center}
 \end{document}
