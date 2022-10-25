@@ -1,0 +1,228 @@
+.cover-page {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    display: flex;
+    margin-top: 10rem;
+}
+
+.unitn-logo {
+    width: 50%;
+    margin: 1rem;
+    text-align: right;
+    border-right: 1px solid #DEDEDE;
+    overflow: hidden;
+}
+
+.course-title {
+    width: 50%;
+    margin: 1rem;
+}
+
+.btn {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 0.5rem 0.8rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  font-family: sans;
+}
+
+body {
+    font-family: 'PT Serif', serif;
+    font-size: 16px;
+    line-height: 180%;     
+    align: center;
+    background: #FEFEFE;
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'PT Sans', sans;
+}
+
+a {
+    color: #4CAF50;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: white;
+    background: #4CAF50;
+}
+
+#my-preamble {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    margin: 0;
+    padding: 0rem;
+    padding-top: 1.6rem;
+    
+    width: 16rem;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+
+    font-size: smaller;
+    font-family: sans;
+
+    background-color: #2F2D2E;
+}
+
+#my-preamble span.title {
+    display: block;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+
+    font-size: x-large;
+    font-weight: bold;
+    color: #CCCCCC;
+}
+    
+
+#my-preamble a {
+    padding-left: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+#my-preamble a {
+    color: #DFDFDF;
+    text-decoration: none;
+}
+
+#my-preamble a:hover {
+    color: white;
+    background: #4CAF50;
+    p
+}
+
+#content {
+  margin-left: 16rem;
+  padding: 1px 16px;
+  text-align: justify;
+}
+
+
+#postamble {
+    margin-left: 16rem;
+    font-size: smaller;
+    line-height: 1.3rem;
+    padding: 0.6rem 1rem 0px 1rem;
+}
+
+#postamble p:first-child {
+    border-top: 1px solid #DEDEDE;
+}
+
+#postamble p {
+    margin: 0px auto 0px auto;
+}
+
+.warning {
+  background: lightpink;
+  padding: 0.2rem 1rem 0.5rem 1rem;
+  border-left: 6px solid red;
+}
+
+/* Teachers */
+
+.teachers-container {
+    display: block;
+}
+
+.person .btn {
+    display: block;
+}
+
+.person {
+    text-align: center;
+    float: left;
+    padding: auto 3rem auto 3rem;
+}
+
+
+.person-content {
+  width: 200px;
+  max-width: 200px;
+  margin: 0px 4rem 0px 4rem;
+}
+
+
+.person-content img {
+    width: 150px;
+}
+
+.person .name {
+    display: block;
+    padding: 0.5rem;
+}
+
+.clearfix {
+    clear: both;
+}
+
+table.calendar {
+    width: 100%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.calendar td, .calendar th {
+    border-bottom: 1px solid black;
+    vertical-align: top;
+    padding: 0.5rem;
+}
+
+.calendar th {
+    text-align: left;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+  #my-preamble {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding-top: 0rem;
+  }
+  #my-preamble span.title {
+      display: inline-block;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      padding-bottom: 3rem;
+      font-size: unset;
+      float: left;
+  }
+  #my-preamble a {
+      float: left;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem
+  }
+  #content {margin-left: 0;}
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  #my-preamble a {
+    text-align: center;
+    float: none;
+  }
+  #my-preamble span.title {
+      display: block;
+      float: none;
+      text-align: center;
+      padding-bottom: 0rem;
+  }
+}
+
+#errore a:hover, #soluzione a:hover {
+    color: black;
+    background: white;
+}
