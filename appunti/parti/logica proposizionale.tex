@@ -1,0 +1,244 @@
+\documentclass[../main.tex]{subfiles}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{hyperref}
+\usepackage{qtree}
+\usepackage{amsmath}
+\usepackage{makecell}
+\usepackage{listings}
+
+\newcommand{\spazio}{\vspace{1em} \newline}
+
+\begin{document}
+    \chapter{La logica}
+    \section{Intuizioni iniziali}
+    Le caratteristiche della logica proposizionale sono:
+    \begin{itemize}
+        \item Un linguaggio proposizionale contiene solo proposizioni primitive.
+        \item Le formule sono interpretate attraverso un dominio di giudizi.
+        \item Le formule complesse sono formate usando un numero arbitrario di connettivi proposizionali.
+        \item I connettivi proposizionali possono essere.
+        \begin{itemize}
+            \item $\lnot$ letto come "not" per la negazione.
+            \item $\land$ letto come "and" per le congiunzioni.
+            \item $\lor$ letto come "or" per le disgiunzioni.
+            \item $\Longrightarrow$ letto come "implies" per le implicazioni.
+            \item $\Longleftrightarrow$ letto come "if and only if" per le equivalenze.
+            \item $\uparrow$ letto come "nand" per le congiunzioni negate.
+            \item $\downarrow$ letto come "nor" per le disngiunzioni negate.
+        \end{itemize} 
+    \end{itemize}
+    La logica proposizionale è utile per problemi che possono essere formalizzati per essere indipendenti da strutture interne.\\
+    Sulla logica proposizionale possiamo fare le seguenti osservazioni:
+    \begin{itemize}
+        \item Una proposizione è una frase che descrive il mondo.
+        \item Una proposizione può essere o vera o falsa.
+        \item "not P" è vera se P è falsa e viceversa.
+        \item "P and Q" è vera se e solo se P e Q sono entrambe vere.
+        \item "P or Q" per essere vera è sufficiente che solo una delle due sia vera.
+        \item "P implies Q" indica che Q è vera quando lo è P, ma non dice nulla su quando P è falsa.
+        \item "P if and only if Q" indica che P e Q devo essere vere/false allo stesso momento.
+        \item "P xor Q" è vera solo se una delle due è vera.
+    \end{itemize}
+
+    \section{Sintassi}
+    \subsection{Alfabeto proposizionale}
+    L'alfabeto è composto da:
+    \begin{itemize}
+        \item Simboli logici: $\lnot, \land, \lor,\supset , \equiv$.
+        \item Simboli non logici: costanti proposizionali e insiemi \textbf{PROP} che contengono simboli P chiamati variabili proposizionali che possono contenere una costante proposizionale come un valore.
+        \item Simboli separatori: "(" e ")".
+    \end{itemize}
+
+    \subsection{Formule ben formate(wff)}
+    Una formula wff viene definita come segue:
+    \begin{itemize}
+        \item Ogni P$\in$\textbf{PROP} è una formula atomica.
+        \item Ogni formula atomica è wff.
+        \item Se A e B sono formule, allora $\lnot$A, A$\land$B, A$\lor$B, A$\supset$B e A$\equiv$B sono formule.
+    \end{itemize}
+    Per leggere una formula è importante sapere che i vari operatori hanno delle diverse priorità, come in matematica le parentesi fungono da modificatore delle priorità.
+    \begin{center}
+        \begin{tabular}{c|c}
+            \textbf{Simbolo} & \textbf{Priorità}\\
+            \hline
+            $\lnot$ & 1\\
+            $\land$ & 2\\
+            $\lor$ & 3\\
+            $\supset$ & 4\\
+            $\equiv$ & 5\\
+        \end{tabular}
+    \end{center}
+
+    \subsection{Sottoformule}
+    Una sottoformula di una formula, rappresentata come un albero, indica l'insieme di tutti i suoi sottoalberi.\\
+    Viene formalmente definita come:
+    \begin{itemize}
+        \item A è una sottoformula di se stessa.
+        \item A e B sono sottoformule di A$\land$B, A$\lor$B, A$\supset$B e A$\equiv$B.
+        \item A è una sottoformula di $\lnot$A.
+        \item Se A è una sottoformula di B e B è una sottoformula di C, allora A è una sottoformula di C.
+        \item A è una sottoformula propria di B se A è sottoformula di B e A$\neq$B.
+    \end{itemize}
+
+    \subsubsection{Esempi}
+    \begin{enumerate}
+        \item Se piove mentre splende il sole apparirà l'arcobaleno.\\
+            p=piove; q=splende il sole; r=arcobaleno;\\
+            (p$\land$q)$\supset$r
+        \item Claudio viene se Elsa viene.\\
+            p=Claudio viene; q=Elsa viene;\\
+            p$\supset$q
+        \item Claudio viene se Elsa viene e viceversa.\\
+            p=Claudio viene; q=Elsa viene;\\
+            p$\equiv$q
+        \item Giacomo viene se e solo se Pietro resta a casa.\\
+            p=Giacomo viene; q=Pietro sta a casa;\\
+            p$\equiv$q
+        \item Noi andiamo se non piove.\\
+            p=Noi andiamo; q=piove;\\
+            p$\equiv \lnot$q
+        \item Claudio ed Elsa sono o fratello e sorella o nipoti.\\
+            p=Claudio ed Elsa sono fratello e sorella; q= Claudio ed Elsa sono nipoti;\\
+            p$\lor$q
+        \item Se perdo se non posso fare una mossa, allora ho perso.\\
+            p=ho perso; q=non posso fare una mossa;\\
+            (q$\supset$p)$\supset$p
+    \end{enumerate}
+
+    \section{Funzione di interpretazione}
+    Il dominio di interpretazione della logica proposizionale è D=\{True, False\}.\\
+    L'interpretazione proposizionale è una funzione:
+    \begin{center}
+        I: \textbf{PROP} $\to$ D
+    \end{center}
+    Se $|$\textbf{PROP}$|$ è la cardinalità di \textbf{PROP} allora esistono $2^{|\textbf{PROP}|}$ interpretazioni differenti corrispondenti a tutti i sottoinsiemi di \textbf{PROP}.
+
+    \section{Implicazione}
+    Diciamo che una funzione di interpretazione implica una formula A se:
+    \begin{itemize}
+        \item I$\models$A, se I(A)=True con A$\in$\textbf{PROP}.
+        \item I$\models \lnot$A, se non è vero che I$\models$A.
+        \item I$\models$A$\land$B se I$\models$A e I$\models$B.
+        \item I$\models$A$\lor$B se I$\models$A o I$\models$B.
+        \item I$\models$A$\supset$B se I$\models$A allora I$\models$B.
+        \item I$\models$A$\equiv$B se I$\models$A se e solo se I$\models$B.
+    \end{itemize}
+    \begin{minipage}{0.5\textwidth}
+        \begin{tabular}{|c|c|}
+            \hline
+            $\lnot$True & False\\
+            $\lnot$False & True\\
+            \hline
+            True $\land$ True & True\\
+            True $\land$ False & False\\
+            False $\land$ True & False\\
+            False $\land$ False & False\\
+            \hline
+            True $\lor$ True & True\\
+            True $\lor$ False & True\\
+            False $\lor$ True & True\\
+            False $\lor$ False & False\\
+            \hline
+        \end{tabular}
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \begin{tabular}{|c|c|}
+            \hline
+            True $\supset$ True & True\\
+            True $\supset$ False & False\\
+            False $\supset$ True & True\\
+            False $\supset$ False & True\\
+            \hline
+            True $\equiv$ True & True\\
+            True $\equiv$ False & False\\
+            False $\equiv$ True & False\\
+            False $\equiv$ False & True\\
+            \hline
+        \end{tabular}
+    \end{minipage}
+
+    \section{Errori comuni}
+    \begin{itemize}
+        \item Noi esprimiamo le congiunzioni con molte parole oltre a "e", degli esempio posso essere "ma", "quindi ", "per tanto", \dots
+        \item Alcune vole "e" non unisce due proposizioni intere ma solo due sostantivi.
+        \item Alcune volte "and" unisce due aggettivi.
+        \item Il modo per esprimere una disgiunzione esclusiva è (p$\lor$q)$\land \lnot$(p$\lor$q), mentre il modo per indicare che hanno valori di verità diversi è negare la loro uguaglianza $\lnot$(p$\equiv$q).
+        \item \textbf{Anche se:} la frase "p anche se q" può essere tradotta in p$\land$(q$\lor \lnot$q).
+    \end{itemize}
+
+    \chapter{Calcolo}
+    \section{Tabelle di verità}
+    Sono il mezzo attraverso il quale generiamo tutte le possibili interpretazioni generate considerando tutte le proposioni atomiche per rispondere ai quesiti di:
+    \begin{itemize}
+        \item Verifica del modello.
+        \item Soddisfacibilità.
+        \item Validità.
+        \item Insoddisfacibilità.
+        \item Conseguenza logica.
+        \item Equivalenza logica.
+    \end{itemize}
+    Per costruire una tabella di verità, con $n$ proposioni aomiche, è possibile seguire l'algoritmo:
+    \begin{enumerate}
+        \item Esiste una riga per ogni interpretazione, quindi ne avrò $2^n$.
+        \item Le prime $n$ colonne comprendono tutte le interpretazioni, mentre l'ultima i valori di verità della formula totale.\\
+            Le colonne nel mezzo contengono i valori di verità delle sottoformule della formula finale presa in considerazione.
+        \item L'asseganemnto dei valori alle proposizioni atomiche inizia da sinistra verso destra, nella prima colonnna alterno T e F con periodo 1, nella seconda con periodo 2 e nella $n$ con periodo $n$.
+    \end{enumerate}
+
+    \section{Verifica del modello}
+    Sia / un interpretazione applicata ad un linguaggio proposizioanel L.\\
+    Possiamo verificare che una formula A$\in$L è soddisfabile da / applicando in modo ricorsivo l'algoritmo \textbf{MCHECK(I,A)}.
+
+    \subsection{Algoritmo}
+    \subsubsection{Caso base}
+    A=p
+    \begin{lstlisting}
+        MCHECK(I$\models$p)
+        if I(p)==True then
+            return YES
+        else
+            return NO
+    \end{lstlisting}
+
+    \subsubsection{Caso ricorsivo}
+    A=B$\land$C
+    \begin{lstlisting}
+        MCHECK(I$\models$B$\land$C)
+        if MCHECK(I$\models$B) then
+            return MCHECK(I$\models$C)
+        else
+            return NO
+    \end{lstlisting}
+
+    \noindent
+    A=B$\lor$C
+    \begin{lstlisting}
+        MCHECK(I$\models$B$\lor$C)
+        if MCHECK(I$\models$B) then
+            return YES
+        else
+            return MCHECK(I$\models$C)
+    \end{lstlisting}
+
+    \noindent
+    A=B$\supset$C
+    \begin{lstlisting}
+        MCHECK(I$\models$B$\supset$C)
+        if MCHECK(I$\models$B) then
+            return MCHECK(I$\models$C)
+        else
+            return YES
+    \end{lstlisting}
+
+    \noindent
+    A=B$\equiv$C
+    \begin{lstlisting}
+        MCHECK(I$\models$B$\equiv$C)
+        if MCHECK(I$\models$B) then
+            return MCHECK(I$\models$C)
+        else
+            return $\lnot$MCHECK(I$\models$C)
+    \end{lstlisting}
+
+    \section{Soddisfacibilità}
+\end{document}

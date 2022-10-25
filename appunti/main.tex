@@ -1,11 +1,18 @@
 \documentclass{book}
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{hyperref}
-\usepackage[margin=1.5cm]{geometry}
 \usepackage{subfiles}
 \usepackage{qtree}
 \usepackage{amsmath}
 \usepackage{makecell}
+\usepackage{listings}
+
+\lstset{
+    basicstyle=\ttfamily,
+    mathescape
+}
+\counterwithin{chapter}{part}
+
 \newcommand{\spazio}{\vspace{1em} \newline}
 
 \title{Logica 2022/2023}
@@ -18,4 +25,7 @@
     \tableofcontents
     \part{Modellazione}
     \subfile{parti/modellazione.tex}
+
+    \part{Logica Proposizionale}
+    \subfile{parti/logica proposizionale.tex}
 \end{document}
