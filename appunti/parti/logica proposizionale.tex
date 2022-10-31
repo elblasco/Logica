@@ -502,4 +502,37 @@
             \item I letterali $\top$ nelle clausole rimanenti.
         \end{itemize}
     \end{itemize}
+    \textbf{Soddisfabilità di una CNF:} sia una $CNF(\phi)=C_0 \dots C_n$ dove i termini sono le clausole delle formula, iteriamo il processo di valutazione letterale, alla fine possiamo finire con due alternative:
+    \begin{enumerate}
+        \item \{\}, cioè un insieme vuoto di clausole quindi $\phi$ è soddisfabile.
+        \item \{\dots \{\} \dots \} se sono riuscito a semplificare solo parte delle clausole vuol dire che $\phi$ è insoddisfabile.
+    \end{enumerate}
+
+    \subsubsection{Esempio}
+    \begin{equation*}
+        (p \lor q) \land (p \lor \lnot p) \land (\lnot q \lor q) \land (\lnot q \lor \lnot p) \land (\lnot q \lor \lnot p) \land (\lnot q \lor \lnot p) \land ( \lnot q \lor q )\land (p \lor \lnot p) \land (p \lor q)
+    \end{equation*}
+    Prima cosa faccio il merge delle clausole uguali:
+    \begin{equation*}
+        (p \lor q) \land (p \lor \lnot p) \land (\lnot q \lor q) \land (\lnot q \lor \lnot p) 
+    \end{equation*}
+    Ora divido in insiemi:
+    \begin{equation*}
+        \{ \{p,q\}, \{p,\lnot p\}, \{\lnot q,q\}, \{\lnot q,\lnot p\} \}
+    \end{equation*}
+    Posso ora applicare una semplificazione per termini positivi in $p$ quindi $\phi|_p$
+    \begin{equation*}
+        \{ \{\top,q\}, \{ \top , \perp \}, \{\lnot q,q\}, \{\lnot q,\perp \} \}
+    \end{equation*}
+    Rimango quindi con:
+    \begin{equation*}
+        \{ \{q\}, \{\lnot q,q\}, \{\lnot q \} \}
+    \end{equation*}
+    Semplifico ora in $\lnot q$ quindi $\phi|_{\lnot q}$
+    \begin{equation*}
+        \{ \{ \perp \}, \{\top , \perp \}, \{\top \} \}
+    \end{equation*}
+    Semplificando rimango con \{\} quindi la formual è soddisfabile.
+
+    \section{La procedura di decisione}
 \end{document}
