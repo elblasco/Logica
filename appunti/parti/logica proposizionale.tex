@@ -87,10 +87,10 @@
             (p$\land$q)$\supset$r
         \item Claudio viene se Elsa viene.\\
             p=Claudio viene; q=Elsa viene;\\
-            p$\supset$q
+            q$\supset$p
         \item Claudio viene se Elsa viene e viceversa.\\
             p=Claudio viene; q=Elsa viene;\\
-            p$\equiv$q
+            q$\equiv$p
         \item Giacomo viene se e solo se Pietro resta a casa.\\
             p=Giacomo viene; q=Pietro sta a casa;\\
             p$\equiv$q
@@ -171,9 +171,9 @@
     Sono il mezzo attraverso il quale generiamo tutte le possibili interpretazioni generate considerando tutte le proposioni atomiche per rispondere ai quesiti di:
     \begin{itemize}
         \item Verifica del modello.
-        \item Soddisfacibilità.
+        \item Soddisfabilità.
         \item Validità.
-        \item Insoddisfacibilità.
+        \item Insoddisfabilità.
         \item Conseguenza logica.
         \item Equivalenza logica.
     \end{itemize}
@@ -241,4 +241,265 @@
     \end{lstlisting}
 
     \section{Soddisfacibilità}
+    Possiamo controllare che qualsiasi formula A$\in$L è soddisfacibile applicando l'algoritmo \textbf{SAT(A)} che è definito come segue:
+    \begin{itemize}
+        \item \textbf{Input:} inseriamo la formula A della quale vogliamo sapere se esiste un interpretazione che la soddisfa.
+        \item \textbf{Output:} ci viene restituita l'interpretazione se la formula è soddisfacibile in caso contrario viene ritornato "no".
+        \item Possiamo verificare A sia soddisfabile applicando in moso ricorsivo \textbf{MCHECK(I,A)} come segue:
+        \begin{itemize}
+            \item Estrarre tutte le proposizioni atomiche di A.
+            \item Generare tutte le interpretazioni I utili.
+            \item Applicare \textbf{MCHECK(I,A)} finchè non si verifica una delle due condizioni.
+        \end{itemize}
+        \begin{enumerate}
+            \item Se \textbf{MCHECK(I,A)} ritorna "YES" allora viene ritornato I.
+            \item Se non ci sono più I da analizare viene ritornato "NO".
+        \end{enumerate}
+        \item \textbf{SAT(A)} compie una cosidetta lazy evaluation infatti salta le interpretazioni quando irrilevanti così evita di valutare $2^n$ casi.
+    \end{itemize}
+
+    \subsubsection{Esempio}
+    Controllo se (P$\land$Q)$\lor$(R$\supset$S) è soddisfacibile.\\
+    Devo calcolare tutte le possibile I:
+    \begin{itemize}
+        \item \{P, Q, R, S\}
+        \item \{P, Q, R\}
+        \item \{P, Q\}\\
+        \vdots
+    \end{itemize}
+    Per ogni I rimpiazzare i valori di verità corrispondenti nelle primitive.\\
+    Con I=\{P\} abbiamo che:
+    \begin{center}
+        (True$\land$False)$\lor$(False$\supset$False)\\
+        False$\lor$True\\
+        True
+    \end{center}
+    Quindi la formula è soddisfacibile.
+
+    \section{Validità}
+    Possiamo controllare che qualsiasi formula A$\in$L sia valida applicando l' algoritmo \textbf{VALID(A)} come segue.
+    \begin{itemize}
+        \item \textbf{Input:} inseriamo la formula A della quale vogliamo sapere se è soddisfabile per ogni interpretazione.
+        \item \textbf{Output:} viene ritornato "YES" se è una formula valida, "NO" altrimenti.
+        \item Possiamo ora verificare che A sia valida applicando \textbf{MCHECK(I,A)} come segue:
+        \begin{itemize}
+            \item Estrarre tutte le proposizioni atomiche di A.
+            \item Generare tutte le interpretazioni I utili.
+            \item Applicare \textbf{MCHECK(I,A)} finchè non si verifica una delle due condizioni.
+        \end{itemize}
+        \begin{enumerate}
+            \item Se un \textbf{MCHECK(I,A)} ritorna "NO" allora tutta la funzione ritorna "NO".
+            \item Se non ci sono più formule da analizzare ritorna "YES".
+        \end{enumerate}
+        \item \textbf{VALID(A)} compie  una lazy evaluation così appena una parte ritorna "NO" si ferma.
+    \end{itemize}
+
+    \subsubsection{Esempio}
+    Controllo se (P$\land$Q)$\lor$(R$\supset$S) è valida.\\
+    Devo calcolare tutte le possibile I:
+    \begin{itemize}
+        \item \{P, Q, R, S\}
+        \item \{P, Q, R\}
+        \item \{P, Q\}\\
+        \vdots
+    \end{itemize}
+    Per ogni I rimpiazzare i valori di verità corrispondenti nelle primitive.\\
+    Con I=\{P, R\} abbiamo che:
+    \begin{center}
+        (True$\land$False)$\lor$(True$\supset$False)\\
+        False$\lor$False\\
+        False
+    \end{center}
+    Essendo un interpretazione falsa la formula non è valida.
+
+    \section{Insoddisfabilità}
+    Possiamo dire per una qualsiasi formula A$\in$L se è insoddisfabile applicando l'algoritmo \textbf{UNSAT(A)} come segue:
+    \begin{itemize}
+        \item \textbf{Input:} inseriamo la formula A della quale vogliamo sapere se è insoddisfabile.
+        \item \textbf{Output:} ritorna "YES" se nessuna I soddisfa A, ritorna "NO" altrimenti.
+        \item Possiamo ora verificare che A sia insoddisfabile applicando \textbf{MCHECK(I,A)} come segue:
+        \begin{itemize}
+            \item Estrarre tutte le proposizioni atomiche di A.
+            \item Generare tutte le interpretazioni I utili.
+            \item Applicare \textbf{MCHECK(I,A)} finchè non si verifica una delle due condizioni.
+        \end{itemize}
+        \begin{enumerate}
+            \item Se un \textbf{MCHECK(I,A)} ritorna "YES" allora si ritorna "NO".
+            \item Se non ci sono più formule da analizzare ritorna "YES".
+        \end{enumerate}
+    \end{itemize}
+
+    \subsubsection{Esempio}
+    Controllo se (P$\land$Q)$\lor$(R$\supset$S) è invalida.\\
+    Calcolo tutti i possibili I.\\
+    Prendo I=\{P\} abbiamo che:
+    \begin{center}
+        (True$\land$False)$\lor$(False$\supset$False)\\
+        False$\lor$True\\
+        True
+    \end{center}
+    In questo caso \textbf{UNSAT(A)} ritornerà "NO" perchè la formula è soddisfacibile.
+
+    \section{Correlazioni tra validità soddisfacibilità e insoddisfabilità}
+    Queste 3 proprietà sono legate tra di loro.\\
+    \textbf{Proposizione 1:} se una formula è valida allora è soddisfabile e anche non insoddisfabile.
+    \begin{center}
+        valida$\supset$soddisfabile$\supset \lnot$insoddisfabile
+    \end{center}
+    \textbf{Proposizione 2:} se una formula è insoddisfabile allora è non soddisfabile e non valida.
+    \begin{center}
+        insoddisfabile$\supset \lnot$soddisfabile$\supset \lnot$valida
+    \end{center}
+    \textbf{Proposzione 3:} data una formula A allora vale che:
+    \begin{center}
+        \begin{tabular}{c c}
+            \hline
+            A & $\lnot$A\\
+            \hline
+            \hline
+            valida & insoddisfabile\\
+            soddisfabile & $\lnot$valida\\
+            $\lnot$valida & soddisfabile\\
+            insoddisfabile & valida\\
+        \end{tabular}
+    \end{center}
+    \textbf{Proposizione 4:}Per un qualsiasi insieme finito $\Gamma$ di formule($\text{A}_1$, \dots $\text{A}_n$ con $n\ge1$) possiamo dire che $\Gamma$ è:
+    \begin{itemize}
+        \item Valido se e solo se $\text{A}_1 \land \dots \land \text{A}_n$ è valida.
+        \item Soddisfabile se e solo se $\text{A}_1 \lor \dots \lor \text{A}_n$ è soddisfabile.
+        \item Insoddisfabile se e solo se $\text{A}_1 \lor \dots \lor \text{A}_n$ è insoddisfabile
+    \end{itemize}
+
+    \section{Conseguenza logica}
+    Possiamo capire se una qualsiasi $\text{T}_1 \models \text{T}_2$ è valida applicando l'algoritmo \textbf{LOGCONS($\text{T}_1$,$\text{T}_2$)} come segue:
+    \begin{itemize}
+        \item \textbf{Input:} T$_1$ è la teoria di partenza che assumo esssere vera mentre T$_2$ è quella che deve seguire o meno T$_1$.
+        \item \textbf{Output:} ritorna "YES" se T$_2$ segue da T$_1$, "NO" altrimenti.
+        \item Possiamo ora verificare che sia una conseguenza logica come segue:
+        \begin{itemize}
+            \item Genero tutte le interpretazioni utili I.
+            \item Applico sistematicamente \textbf{MCHECK(I,T$_1$)} con i seguenti risultati:
+        \end{itemize}
+        \begin{enumerate}
+            \item Se \textbf{MCHECK(I,T$_1$)} ritorna "YES" applico \textbf{MCHECK(I,T$_2$)} che se ritoena "NO" faccio ritornare "NO" da tutto.
+            \item Se non ci sono più I da analizzare ritorno "YES".
+        \end{enumerate}
+    \item \textbf{LOGCONS($\text{T}_1$,$\text{T}_2$)} compie una lazy evaluation quando una chiamata ritorna "NO".
+    \end{itemize}
+
+    \section{Equivalenza logica}
+    Possiamo capire se una qualsiasi $\text{T}_1$ e $\text{T}_2$ sono logicamente equivalenti con l'algoritmo \textbf{LOGEQ($\text{T}_1$,$\text{T}_2$)} come segue:
+    \begin{itemize}
+        \item \textbf{Input:} T$_1$ è la teoria di partenza che assumo esssere vera mentre T$_2$ è quella che deve essere equivalente o meno T$_1$.
+        \item \textbf{output:} ritorna "YES se sono equivalenza logica, "NO" altrimenti.
+        \item Possiamo verificare che due teorie sono un'equivalenza logica applicando l'algoritmo:
+        \begin{itemize}
+            \item Genero le interpretazioni che potrebbero essermi utili.
+            \item Applico \textbf{MCHECK(I,T$_1$)} e  \textbf{MCHECK(I,T$_2$)}.
+            \item Se i risultati sono diversi ritorno "NO", ritorno "YES" altrimenti.
+        \end{itemize}
+    \end{itemize}
+
+    \chapter{La procedura di decisione DPLL}
+    \section{Nozioni di base}
+    SAT o UNSAT sono delle proprietà chiave che indicano se una teoria può essere applicata in pratica.\\
+    PL SAT è un prblema NP-completo quindi tutti i problemi NP-completi posso essere codificati in SAT.\\
+    \textbf{Teorema di deduzione:} data $\Gamma$, se $\phi \models \psi$ allora $\Gamma \models \phi \supset \psi$ con $\Gamma$ possibilmente vuota.
+
+    Questo ci permette di ridurre il problema dalla verifica della conseguenza logica ad PL SAT.\\
+    PL SAT può essere ridotto con l'uso di CNF PL SAT(Conjunctive Normal Form), a questo punto CNF SAT può essere risolto in modo molto efficente usando l'euristica.
+
+    \section{CNF(Conjunctive Normal Form)}
+    Definizioni:
+    \begin{itemize}
+        \item \textbf{Letterale:} è o una variabile proposizionale oppure il negato di una variabile proposizionale, due esempi sono le formule $p$ e $\lnot p$.
+        \item \textbf{Clausole:} è una disgiunzione($\lor$) di letterali.
+        \item \textbf{CNF(Conjunctive Normal Form):} una formula è in CNF se è una congiunzione di varie clausole per esempio: 
+            \begin{center}
+                $(p \lor \lnot q \lor r) \land (q \lor r) \land (\lnot p \lor \lnot q) \land r$ 
+            \end{center}
+            Una CNF ha sempre la seguente formula:
+            \begin{center}
+                $(L_{(1,1)} \lor \dots \lor L_{(1,n_1)})\land \dots \land (L_{(m,1)} \lor \dots \lor L_{(m,n_m)})$
+            \end{center}
+            Scritto anche come:
+            \begin{center}
+                $\bigwedge^{m}_{i=1} (\bigvee^{n_j}_{j=1} L_{i,j})$
+            \end{center}
+            dove $L_{i,j}$ è il j-esimo letterale della i-esima formula.
+    \end{itemize}
+    Proprietà delle clausole:
+    \begin{itemize}
+        \item L'ordine dei letterali in una clausola non importa $\phi \lor \psi \equiv \psi \lor \phi$, infatti $(p \lor q \lor r \lor \lnot r ) \equiv (\lnot r \lor q \lor p \lor r)$.
+        \item Alcuni letterali possono essere uniti, se una clausola c'è più di un'occorrenza dil un letterale posso spostare i due uguali vicini per unirli $\phi \lor \phi \equiv \phi$, infatti $(p \lor q \lor r \lor q \lor \lnot r ) \equiv (p \lor q \lor r \lor \lnot r )$.
+        \item Le clausole sono insiemi di letterali, possiamo costruire un insieme togliendo le disgiunzioni e ignorano le ripetizioni, infatti $(p \lor q \lor r \lor \lnot r)$ è rappresentato da $\{p, q, r, \lnot r\}$.
+    \end{itemize}
+    Proprietà delle formule CNF:
+    \begin{itemize}
+        \item L'ordine delle clausole non importa se una formula CNF $\phi$ è ottenuta riordinando i termini di una formula CNF $\phi \prime$ allora $\phi \equiv \phi \prime$.
+        \item Le clausole uguali posso essere unite in una unica clausola.
+        \item Una formula in CNF può essere vista come un insieme clausole.
+        \item \textbf{Esistenza:} ogni formula può essere riscritta in CNF.
+        \item \textbf{Equivalenza:} $\models$ CNF($\phi$)$\equiv \phi$.
+        \item \textbf{Funzione CNF:} data una formula PL $\phi$ la funzione CNF(\dots) che trasforma $\phi$ nella sua forma CNF è definita ricorsivamente:
+            \begin{align*}
+                CNF(p)&=\text{p se p} \in \textbf{PROP}\\
+                CNF(\lnot p) &=\text{$\lnot$p se p} \in \textbf{PROP}\\
+                CNF(\phi \supset \psi) &= CNF(\lnot \phi) \otimes CNF(\psi)\\
+                CNF(\phi \land \psi) &= CNF(\phi) \land CNF(\psi)\\
+                CNF(\phi \lor \psi) &= CNF(\phi) \otimes CNF(\psi)\\
+                CNF(\phi \equiv \psi) &= CNF(\phi \supset \psi) \land CNF(\psi \supset \phi)\\
+                CNF(\lnot \lnot \phi) &= CNF(\phi)\\
+                CNF(\lnot (\phi \supset \psi)) &= CNF(\phi) \land CNF(\lnot \psi)\\
+                CNF(\lnot (\phi \land \psi)) &= CNF(\lnot \phi) \otimes CNF(\lnot \psi)\\
+                CNF(\lnot (\phi \lor \psi)) &= CNF(\lnot \phi) \land CNF(\lnot \psi)\\
+                CNF(\lnot (\phi \equiv \psi)) &= CNF(\phi \land \lnot \psi) \otimes CNF(\psi \land \lnot \phi)
+            \end{align*}
+            Dove $(C_1 \land \dots \land C_n) \otimes (D_1 \land \dots \land D_m)$ è definito come:
+            \begin{center}
+                $(C_1 \lor D_1) \land \dots \land(C_1 \lor D_m) \land \dots \land(C_n \lor D_1) \land \dots \land(C_n \lor D_m)$
+            \end{center}
+    \end{itemize}
+
+    \subsubsection{Esempio di CNF}
+    Proviamo ora a trasformare in CNF la seguente formula:
+    \begin{gather*}
+        p1 \equiv (p2 \equiv (p3 \equiv (p4 \equiv (p5 \equiv p6)))) \\
+        CNF(p1 \supset (p2 \equiv (p3 \equiv (p4 \equiv (p5 \equiv p6))))) \land CNF((p2 \equiv (p3 \equiv (p4(p5 \equiv p6)))) \supset p1)\\
+        \vdots
+    \end{gather*}
+    la lunghezza della formula diventa di lunghezza esponenziale se si continua, nel caso peggiore la formula CNF($\phi$) è esponenzialmente lunga rispetto a $\phi$ però calcolare la validità/insoddisfabilità di una formula CNF richiede un tempo lineare.
+
+    \section{Soddisfabilità di una formula in CNF}
+    Sia $CNF(\phi)=C_0, \dots ,C_n$ dove $C_0,\dots ,C_n$ sono le clausola in CNF($\phi$), allora vale che:
+    \begin{itemize}
+        \item $I \models \phi$ se e solo se $I \models C_i$ per ogni i=0, \dots, n.
+        \item $I \models C_i$ se e solo se per un letterale $k \in C_i$, $I \models k$.
+    \end{itemize}
+    Per vedere se un modello $I$ soddisfa $N$ non abbiamo bisogno di conoscere tutti i valori dei letterali che appaiono in $N$.\\
+    Per esempio se $I(P)$=True e $I(q)$=false possiamo dire che $I \models \{\{p, q, \lnot r\}, \{\lnot q, s\}\}$.\\
+    Possiamo usare una funzione parziale per assegnare ad alcune variabili dell' alfabeto il valore di verità, grazie a questa valutazione parziale possimo dire che i letterali o le clausole sono True, False o Undefined.
+    \begin{itemize}
+        \item \textbf{True:} una clausola è True se secondo $I$ almeno uno dei suoi ltterali è True.
+        \item \textbf{False:} una clausola è falsa se tutti i suoi letterali sono falsi.
+        \item \textbf{Undefined:} quando il valore di verità dei suoi letterali è irrilevante per l'interpretazione corrente.
+    \end{itemize}
+    \textbf{Semplificazione di formule attraverso letterali positivi:} per una formula in CNF $\phi$ ed il termine $p$ allora $\phi |_p$ indica la formula ottenuta da $\phi$ con:
+    \begin{itemize}
+        \item Rimpiazzando tutte le occorrenze di $p$ con il valore $\top$.
+        \item Semplificando il risultato rimuovendo:
+        \begin{itemize}
+            \item Le clausole contenenti il termine disgiuntivo $\top$.
+            \item I letterali $\lnot \top = \perp$ nelle formule rimanenti.
+        \end{itemize}
+    \end{itemize}
+    \textbf{Semplificazione di formule attraverso letterali negativi:} per una formula in CNF $\phi$ ed il termine $p$ allora $\phi |_{\lnot p}$ indica la formula ottenuta da $\phi$ con:
+    \begin{itemize}
+        \item Rimpiazzando tutte le occorrenze di $\lnot p$ con il valore $\perp$.
+        \item Semplificando il risultato rimuovendo:
+        \begin{itemize}
+            \item Le clausole contenenti i termini di disgiunzione $\lnot \top = \perp$.
+            \item I letterali $\top$ nelle clausole rimanenti.
+        \end{itemize}
+    \end{itemize}
 \end{document}
