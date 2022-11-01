@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{makecell}
 \usepackage{listings}
+\usepackage{graphicx}
 
 \newcommand{\spazio}{\vspace{1em} \newline}
 
@@ -532,7 +533,43 @@
     \begin{equation*}
         \{ \{ \perp \}, \{\top , \perp \}, \{\top \} \}
     \end{equation*}
-    Semplificando rimango con \{\} quindi la formual è soddisfabile.
+    Semplificando rimango con \{\} quindi la formula è soddisfabile.
 
     \section{La procedura di decisione}
+    \subsection{Semplificazione con unità di propagazione}
+    \textbf{Clausola unita:} se una formula in CNF $\phi$ contiene una clausola $C=\{I\}$ che consiste un singolo letterale $I$ nel suo insieme.
+    \subsubsection{Esempio}
+    Prendiamo la formula in CNF $\phi=\{\{p\}, \{\lnot p\}, \{\lnot q, r \}\}$ è soddisfabile solo se se esiste un'interpretazione $I$ tale che $I \models \phi$.
+    \begin{gather*}
+        \{\{p\}, \{\lnot p\}, \{\lnot q, r \}\}|_p\\
+        \{\{ \top \}, \{ \perp \}, \{\lnot q, r \}\}\\
+        \{\{\}, \{\lnot q, r \} \}\\
+        \{ \dots,\{\}, \dots\}
+    \end{gather*}
+    Quindi la formula non è soddisfabile.
+    
+    \subsubsection{Osservazioni}
+    \begin{itemize}
+        \item Ci sono casi in cui l'unità di propagazione non genera una delle condizioni di terminazione, quindi dobbiamo asseganre noi "a occhio" i valori di verità ai letterali.
+        \item Ogni letterale genererà un ramo per ogni valore di verità, da qui nasce la quantità esponenziale di funzioni da analizzare.
+    \end{itemize}
+
+    \subsubsection{Algoritmo DPLL}
+    \begin{lstlisting}
+        DPLL($\phi$, I)
+        if $\phi$ contains the empty clause {} then
+            return False;
+        end
+        if $\phi$ = {} then
+            exit with I;
+        end
+        select a literal I $\in$ C $\in$ $\phi$
+        DPLL($\phi |$k , I $\cup$ (I(k) = true)) or DPLL($\phi | \lnot$k , I $\cup$ (I(k) = true))
+    \end{lstlisting}
+    Per arrivare ad una soglia di efficenza c'è bisogno di fare delle scelte euristiche che se si rivelano sbagliate vanno corrette con backtrack.
+    \subsubsection{Esempio}
+    Considerando la formula $(p \lor \lnot q) \land (p \lor r) \land (\lnot p)$ dobbiamo allora creare l'albero:
+    \begin{center}
+        \includegraphics[width=4.5cm,height=4cm,angle=0]{../img/albero_DPLL.png}
+    \end{center}
 \end{document}
