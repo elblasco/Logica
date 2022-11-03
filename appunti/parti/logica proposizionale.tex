@@ -187,7 +187,7 @@
     \end{enumerate}
 
     \section{Verifica del modello}
-    Sia / un interpretazione applicata ad un linguaggio proposizioanel L.\\
+    Sia / un interpretazione applicata ad un linguaggio proposizionale L.\\
     Possiamo verificare che una formula A$\in$L è soddisfabile da / applicando in modo ricorsivo l'algoritmo \textbf{MCHECK(I,A)}.
 
     \subsection{Algoritmo}
@@ -242,10 +242,10 @@
     \end{lstlisting}
 
     \section{Soddisfacibilità}
-    Possiamo controllare che qualsiasi formula A$\in$L è soddisfacibile applicando l'algoritmo \textbf{SAT(A)} che è definito come segue:
+    Possiamo controllare che qualsiasi formula A$\in$L è soddisfabile applicando l'algoritmo \textbf{SAT(A)} che è definito come segue:
     \begin{itemize}
         \item \textbf{Input:} inseriamo la formula A della quale vogliamo sapere se esiste un interpretazione che la soddisfa.
-        \item \textbf{Output:} ci viene restituita l'interpretazione se la formula è soddisfacibile in caso contrario viene ritornato "no".
+        \item \textbf{Output:} ci viene restituita l'interpretazione se la formula è soddisfabile in caso contrario viene ritornato "no".
         \item Possiamo verificare A sia soddisfabile applicando in moso ricorsivo \textbf{MCHECK(I,A)} come segue:
         \begin{itemize}
             \item Estrarre tutte le proposizioni atomiche di A.
@@ -260,7 +260,7 @@
     \end{itemize}
 
     \subsubsection{Esempio}
-    Controllo se (P$\land$Q)$\lor$(R$\supset$S) è soddisfacibile.\\
+    Controllo se (P$\land$Q)$\lor$(R$\supset$S) è soddisfabile.\\
     Devo calcolare tutte le possibile I:
     \begin{itemize}
         \item \{P, Q, R, S\}
@@ -275,7 +275,7 @@
         False$\lor$True\\
         True
     \end{center}
-    Quindi la formula è soddisfacibile.
+    Quindi la formula è soddisfabile.
 
     \section{Validità}
     Possiamo controllare che qualsiasi formula A$\in$L sia valida applicando l' algoritmo \textbf{VALID(A)} come segue.
@@ -339,7 +339,7 @@
         False$\lor$True\\
         True
     \end{center}
-    In questo caso \textbf{UNSAT(A)} ritornerà "NO" perchè la formula è soddisfacibile.
+    In questo caso \textbf{UNSAT(A)} ritornerà "NO" perchè la formula è soddisfabile.
 
     \section{Correlazioni tra validità soddisfacibilità e insoddisfabilità}
     Queste 3 proprietà sono legate tra di loro.\\
@@ -572,4 +572,135 @@
     \begin{center}
         \includegraphics[width=4.5cm,height=4cm,angle=0]{../img/albero_DPLL.png}
     \end{center}
+
+    \subsection{Algoritmo DPLL con unità di propagazione}
+    \begin{lstlisting}
+        Input: un insieme di clausole $\phi$.
+        Output: Una tabella di verita' che indica quando $\phi$ e' soddisfabile.
+
+        function DPLL($\phi$)
+            while esiste una clausola {l} in $\phi$ do
+                $\phi$ $\leftarrow$ unit-propagate(l, $\phi$);
+            while esiste un letterale L che appare in $\phi$ do
+                $\phi$ $\leftarrow$ pure-literal-assign(l, $\phi$);
+            if $\phi$ is empty then return true;
+            if $\phi$ contains an empty clause then return false;
+            l $\leftarrow$ select-literal($\phi$);
+            DPLL($\phi$ $\land$ {l}) or DPLL($\phi$ $\land$ {$\lnot$ (l)});
+    \end{lstlisting}
+
+    \chapter{Decisione procedura basata su Tableau}
+    \section{Nozioni di base}
+    Dobbiamo capire perchè i Tableau possono risolvere il problema di SAT.\\
+    \textbf{Principio di confutazione:} ci permette di trasformare un problema di conseguenza logica in uno di insoddisfabilità.
+    \begin{center}
+        $\Gamma \models \phi$ se e solo se $\Gamma \cup \{ \lnot \phi \}$
+    \end{center}
+    Come con DPLL vengono dati input all'algoritmo solo le formule rilevanti per la valutazione.\\
+    Anche se con i Tableau non serve che la formula sia in CNF e il passo di inferenza è diverso da DPLL anche se creano un algoritmo per la nozione di implicazione.\\
+    I Tableau sono, infatti, una rappresentazione diretta della definizione di implicazione questo lo rende concettualmente più semplice da capire ma anche più difficile da scalare su formule complesse.
+
+    \section{Sistema Tableau}
+    \textbf{Tableau:} il metodo basato su Tableau è composto da 3 elementi:
+    \begin{enumerate}
+        \item Un insieme di premesse $\Gamma$ e di conclusioni $\phi$.
+        \item Un compito, provare che $\Gamma \models \phi$.
+        \item Le procedure che dimostrano che $\Gamma \cup \{\lnot \phi\}$ non è soddisfabile, oppure che $\Gamma \cup \{\phi\}$ è valido quindi soddisfabile
+    \end{enumerate}
+    \textbf{Tableau proposizionali:} è un albero con radice dove:
+    \begin{itemize}
+        \item Ogni nodo indica una proposizione.
+        \item La radice è la formula che dobbiamo provare insoddisfabile.
+        \item I fogli di un nodo $n$ sono generati con apposite regole di espansione ad $n$ o ad uno dei suoi antenati.
+    \end{itemize}
+
+    \subsection{Regole $\alpha$}
+    \begin{minipage}{0.333333\textwidth}
+        \begin{gather*}
+            \phi \land \psi\\
+            \downarrow\\
+            \phi\\
+            \psi
+        \end{gather*}
+    \end{minipage}
+    \begin{minipage}{0.333333\textwidth}
+        \begin{gather*}
+            \lnot (\phi \lor \psi)\\
+            \downarrow\\
+            \lnot \phi\\
+            \lnot \psi
+        \end{gather*}
+    \end{minipage}
+    \begin{minipage}{0.333333\textwidth}
+        \begin{gather*}
+            \lnot (\phi \supset \psi)\\
+            \downarrow\\
+            \phi\\
+            \lnot \psi
+        \end{gather*}
+    \end{minipage}
+    Le regole $\alpha$ sono congiuntive quindi creano un solo figlio.
+
+    \subsubsection{Esempio}
+    \begin{gather*}
+        \lnot (p \supset (q \lor \lnot (p \land r )))\\
+        \downarrow\\
+        p\\
+        \lnot (q \lor \lnot (p \land r ))\\
+        \downarrow\\
+        \lnot q\\
+        p \land r\\
+        \downarrow\\
+        p\\
+        r 
+    \end{gather*}
+
+    \subsection{Regole $\beta$}
+    \begin{minipage}{0.333333\textwidth}
+        \Tree[.$\phi \lor \psi$ [.$\phi$ ] [.$\psi$ ]]
+    \end{minipage}
+    \begin{minipage}{0.333333\textwidth}
+        \Tree[.$\lnot (\phi \land \psi)$ [.$\lnot \phi$ ] [.$\lnot \psi$ ]]
+    \end{minipage}
+    \begin{minipage}{0.333333\textwidth}
+        \Tree[.$\phi \supset \psi$ [.$\lnot \phi$ ] [.$\psi$ ]]
+    \end{minipage}
+    Le regole $\beta$ sono disgiuntive quindi creano due rami distinti che sono entrambi da completare, e quindi bene lasciare queste regole per ultime e usarle solo se necessario.
+
+    \subsection{Controllare la soddisfacibilità}
+    Se vogliamo controllare che $\Gamma$ sia soddisfabile metto nella radice del Tableau $\Gamma$ e applico le regole, se almeno un ramo non chiude vuol dire che che è soddisfabile e dal quel ramo possiamo prendere i valori da dare ai termini atomici.
+
+    \subsection{Derivazione}
+    Siano $\phi$ una formula proposizionale e $\Gamma$ un insieme di formule proposizionali, scriveremo $\Gamma \vdash \phi$ se esiste un Tableau chiuso per $\Gamma \cup \{\lnot \phi\}$.
+
+    \subsection{Utilità}
+    \begin{itemize}
+        \item Una formula è insoddisfabile se e solo se oddisfabile, per testare che $\phi$ sia valida basta testare che il Tableau chiuda tutti i rami di $\lnot \phi$.
+        \item Per verificare che $\phi$ è una conseguenza logica di $\Gamma$ quindi $\Gamma \models \phi$basta verificare con un Tableau che $\Gamma \land \lnot phi$ che un ramo chiuda.
+        \item Per verificare l'equivalenza logica basta ricondursi al caso di conseguenza logica.
+    \end{itemize}
+    Per riassumere:
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            Formula & Tableau & Significato\\
+            \hline
+            $p$ & Chiude & $p$ è insoddisfabile, $\lnot p$ è valida\\
+            \hline
+            $p$ & Aperto & $p$ è soddisfabile\\
+            \hline
+            $\lnot p$ & Chiude & $\lnot p$ è insoddisfabile, $p$ è valida\\
+            \hline
+            $\lnot p$ & Aperto & $\lnot p$ è soddisfabile\\
+            \hline
+        \end{tabular}
+    \end{center}
+
+    \subsection{Teoremi finali}
+    \begin{itemize}
+        \item \textbf{Terminazione:} per ogni Tableau proposizionale dopo un numero finito di espansioni nessuna regola è più applicabile.
+        \item \textbf{Equità:} definiamo così un Tableau proposizionale quando ogni non-letterale di un ramo viene analizzato in quel ramo.
+        \item \textbf{Solidità:} Se $\Gamma \vdash \phi$ allora $\Gamma \models \phi$.
+        \item \textbf{Completezza:} Se $\Gamma \models \phi$ allora $\Gamma \vdash \phi$.
+    \end{itemize}
 \end{document}
