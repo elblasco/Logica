@@ -1,0 +1,279 @@
+\documentclass[../main.tex]{subfiles}
+
+\graphicspath{{\subfix{../img/}}}
+
+\newcommand{\spazio}{\vspace{1em} \newline}
+
+\begin{document}
+   \part{Logica del Primo Ordine}
+
+   \chapter{Logica}
+
+   \section{Intuizione}
+   Fino ad ora abbiamo incontrato solo la logica proposizionale che purtroppo pecca per quanto riguarda il potere espressivo.\\
+   La difficoltà più grande è che possiamo espremire solo insiemi finiti.\\
+
+   \subsubsection{Caratteristiche della logica del primo ordine}
+   \begin{itemize}
+      \item Termini complessi e formule complesse.
+      \item Le formule primitive molte volte non sono parte del linguaggio.
+      \item Termini e formule atomiche sono interpretate su un domini di fatti e entità.\\
+         Le formule complesse sono interpretate attraverso un dominio di giudizi.
+      \item Le formule complesse sono formate un qualsiasi numero di connettivi proposizionali più un numero di quantificatori.
+      \item I quantificatori sono: $\forall$ e $\exists$.
+   \end{itemize}
+
+   \subsubsection{Esempi di espressività}
+   Come posso esprimere le seguenti frasi?
+   \begin{itemize}
+      \item Mary is a person.
+      \item John is a person.
+      \item Mary is mortal.
+   \end{itemize}
+   Visto che sono proposizioni atomiche non primitive:
+   \begin{itemize}
+      \item Person(Mary)
+      \item Person(John)
+      \item Mortal(Mary)
+   \end{itemize}
+   \vspace{1em}
+   La logica del primo ordine risulta più utile nei seguenti casi:
+   \begin{itemize}
+      \item All people are mortal.
+      \item There is (at least) a person who is a spy.
+   \end{itemize}
+   Che posso esprimere come:
+   \begin{itemize}
+      \item $\forall$ people.Mortal(people)
+      \item $\exists$ person.Spy(person)
+   \end{itemize}
+   \vspace{1em}
+   Con la logca del primo ordine posso anche annidare formule.
+   \begin{itemize}
+      \item The father of Luca is Italian.
+   \end{itemize}
+   Diventa:
+   \begin{itemize}
+      \item Italian(fatherOf(Luca))
+   \end{itemize}
+   \vspace{1em}
+   Infine posso usare i concatenatori visti nella logica proposizionale.
+   \begin{itemize}
+      \item Every Natural number is either even or odd.
+   \end{itemize}
+   La posso vedere come:
+   \begin{itemize}
+      \item $\forall$ number.(odd(number) $\lor$ even(number))
+   \end{itemize}
+
+   \section{Sintassi}
+   La sintassi di un linguaggio $L$ è definita come segue:
+   \begin{itemize}
+      \item Un insieme di termini primitivi detti termini alfabetici.
+      \item Un insieme di regole per la formazione di formule che permettono di comporre termini atomici.
+      \item Un insieme di regole da termine a frase.
+      \item Un insieme di frasi primitive chiamato alfabeto delle frasi.
+      \item Un insieme di regole per la formazione di frasi.
+      \item Un insieme di regole da frasi a termini.
+   \end{itemize}
+
+   \subsection{Definizioni}
+   \begin{itemize}
+      \item \textbf{Alfabeto:} L'alfabeto della logica del primo ordine è formato da due insimi di simboli simboli logici e simboli non logici.
+      \item \textbf{Simboli logici:} I simboli logici sono i seguenti:
+         \begin{itemize}
+            \item In modo opzionale le costanti logiche $\perp$ e $\top$.
+            \item In modo opzionale il simbolo di ugualgianza $=$.
+            \item Connettivi della logica proposizionale $\land$, $\lor$, $\supset$, $\lnot$, $\equiv$.
+            \item Quantificatori $\forall$ e $\exists$.
+            \item Un insieme infinito di simboli per le variabili $x_1, x_2, \dots$
+         \end{itemize}
+      \item \textbf{Simboli non logici:} I simboli non logici sono i seguenti:
+         \begin{itemize}
+            \item Un insieme di costanti $c_1, c_2, \dots$
+            \item Un insieme di funzioni con la loro arietà $f_1, f_2, \dots$
+            \item Un insieme di predicati $P_1, P_2, \dots$
+         \end{itemize}
+      \item \textbf{Termini:}
+         \begin{itemize}
+            \item Ogni costante $c_i$ e variabile $x_i$ è un termine.
+            \item Se $t_1 \dots t_n$ sono termini e $f_i$ una funzione che ha nella firma $n$ elementi, allora $f(t_1 \dots t_n)$ è un termine.
+         \end{itemize}
+      \item \textbf{Well-formed formulas}
+         \begin{itemize}
+            \item Se $t_1 \dots t_n$ sono termini e $P$ è un simbolo di relazione con arietà uguale a $n$, allora $P(t_1 \dots t_n)$ è una formula atomica.
+            \item Se A e B sono formule allora $\top$, $\perp$, A$\land$B, A$\lor$B, A$\supset$B, $\lnot$A e A$\equiv$B sono formule.
+            \item Se A è uina formula e $x$ una variabile allora $\forall x$.A e $\exists x$.A sono fomrule.
+         \end{itemize}
+   \end{itemize}
+
+   \section{Funzione di interpretazione}
+   \textbf{Interpretazio2ne FOL:} Una interpretazione del primo ordine per il linguaggio:
+   \begin{center}
+      $L=(c_1,c_2, \dots, f_1,f_2, \dots, P_1,P_2, \dots)$
+   \end{center}
+   è la tupla
+   \begin{center}
+      $\langle \Delta, I \rangle$
+   \end{center}
+   Dove:
+   \begin{itemize}
+      \item $\Delta$ è un insieme non vuoto chiamato \textbf{dominio di interpretazione}.
+      \item $I$ è una funzione chiamata \textbf{funzione di interpretazione} definita come:
+      \begin{itemize}
+         \item $I(c_i) \in \Delta$ (elemento del dominio)
+         \item $I(f_i) : \Delta^n \to \Delta$ (n-aria funzione sul dominio)
+         \item $I(P_i) \subseteq \Delta^n$ (n-aria relazione sul dominio)
+      \end{itemize}
+   \end{itemize}
+   dove:
+   \begin{itemize}
+      \item $n$ è l'arietà di $f_i$ e $P_i$
+      \item $\Delta^n = \Delta \times \dots \times \Delta$ 
+   \end{itemize}
+
+   \subsection{Interpretazione di ground formulas (formule senza variabili)}
+   L'interpretazione di un termine è un' entità nel dominio, possiamo avere sinonimità ma non polisemia.\\
+   I simboli di funzione sono usati per generare la descrizione di termini complessi, i simboli di una funzione n-aria denotano lo spazio di tutti i possibili termini.\\
+   Le entità generate da una funzione n-aria sono rappresentati come una (n+1)-aria tupla.\\
+   Predicati n-ari sono usati per generare formule atomiche, i fatti generati da un predicato n-ario sono rappresentati da un tupla n-aria.
+
+   \subsection{Interpretazione di una formula con variabili}
+   Una variabile presente in una formula atomica non può essere interpretata come elemento del dominio, nello stesso momento ad una formula atomica deve essere assegnata un'interpretazione.\\
+   Possiamo interpretare una variabile come qualcosa la cui interpretazione ci è ancora ignota ma, che in seguito potrà avere un valore compreso nel dominio.\\
+   \textbf{N.B.} nessun valore del dominio può essere scartato a priori.
+
+   \subsubsection{Assegnamento delle variabili}
+   Sia $L$ un linguaggio del primo ordine e $\Delta$ il suo dominio di interpretaione.\\
+   Sia A$\in L$ una formual del primo ordine e Var(A)=\{$x_1, \dots , x_n$\} l'insieme delle variabili occorenti in A.\\
+   Un assegnamento $a$ è una funzione dall'insieme delle variabili al dominio di interpretazione $\Delta$:
+   \begin{center}
+      $a: \text{Var(A)} \to \Delta$
+   \end{center}
+   Scriveremo $a[x/d]$ per inidcare l'asseganmento $a$ su tutte le variabili tranne $x$ che sono associate a $d$ con $d \in \Delta$.
+
+   \section{Conseguenza logica}
+   Siano $L$ un linguaggio formale, $T \subseteq L$ una teoria formale, $I : L \to D$ una funzioane di interpretazione per $L$, $M \subseteq D$ un modello per $T$.\\
+   Allora $\models_L$ associa cosa c'è di vero in $M$ con le wffs in $T$:
+   \begin{center}
+      $\models_L \subseteq M \times T$
+   \end{center}
+   Possiamo anche scrivere:
+   \begin{center}
+      $M \models_L T$
+   \end{center}
+
+   \subsection{Occorenze libere delle variabili}
+   \textbf{Occorrenza libera:} una variabile occurre libermanete se vale una delle seguenti affermaioni:
+   \begin{itemize}
+      \item Un'occorrenza di $x$ in un termine $t_k$ è libera in $P(t_1, \dots , t_k, \dots , t_n)$.
+      \item Ogni occorenza libera di $x$ in una formula $\phi$ o $\psi$ rimane liber anche in $\phi \land \psi$, $\phi \land \psi$, $\phi \supset \psi$, $\phi \equiv \psi$ e $\lnot \phi$.
+      \item un'occorrenza libera di $x$ in una formula $\phi$ rimane libera in $\forall y.\phi$ e $\exists y.\phi$ se $y$ è diversa da $x$.
+   \end{itemize}
+   \textbf{Ground formula:} una formula si dice grounded se non presenta variabili.\\
+   \textbf{Closed formula:} una formula si dice chiusa se non contiene occorrenze libere di una variabile.
+
+   \subsection{Soddisfacibilità con riferimento all'assegnamento}
+   Un'interpretazione $I$ soddisfa una formula $\phi$ considerando un assegnamento $a$ secondo le seguenti formule:
+   \begin{center}
+      \begin{tabular}{c c c}
+         $I \models t_1 = t_2[a]$ & iff & $I(t_1)[a]=I(t_2)[a]$\\
+         $I \models P(t_1, \dots, t_n)[a]$ & iff & $<I(t_1)[a], \dots, I(t_n)[a] > \in I(P)$\\
+         $I \models (\phi \land \psi)[a]$ & iff & $I \models \phi[a]\ \text{and}\ I \models \psi[a]$\\
+         $I \models (\phi \lor \psi)[a]$ & iff & $I \models \phi[a]\ \text{or}\ I \models \psi[a]$\\
+         $I \models (\phi \supset \psi)[a]$ & iff & $I \not \models \phi[a]\ \text{or}\ I \models \psi[a]$\\
+         $I \models \lnot \phi[a]$ & iff & $I \not \models \psi[a]$\\
+         $I \models (\phi \equiv \psi)[a]$ & iff & $I \models \phi[a]\ \text{iff}\ I \models \psi[a]$\\
+         $I \models \exists x \phi[a]$ & iff & $\text{there is a}\ d \in \Delta\ \text{such that}\ I \models \phi[a[x/d]]$\\
+         $I \models \forall x \phi[a]$ & iff & $\text{for all}\ d \in \Delta, I \models \phi[a[x/d]]$
+      \end{tabular}
+   \end{center}
+
+   \subsection{Soddisfacibilità}
+   \textbf{Modello rispetto all'assegnamento:} un interpretazione $I$ è un modello di $\phi$ secondo l'assegnamento $a$ se:
+   \begin{center}
+      $I \models \phi [a]$
+   \end{center}
+   \textbf{Modello, soddisfacibilità:} un interpretazione $I$ è un modello per $\phi$ se esiste un asseganmento $a$ tale che $I$ sia un modello per $\phi$ secondo $a$, una fomrula $\phi$ è soddisfacibile se esiste una qualsiasi $I$ e una $a$ tale che $I \models \phi [a]$.
+   \spazio
+   \textbf{Implicazione, verità, soddisfacibilità:} le seguenti affermazioni sono equivalenti all'enuinciato $I \models A$:
+   \begin{itemize}
+      \item La funzione di interpretazione (e anche modello) $I$ implica la formula $A$.
+      \item La formula $A$ è vera nella funzione di interpretazione (e anch modello) $I$.
+      \item La formula $A$ è soddisfatta dall'interpretaione (e modello) $I$.
+   \end{itemize}
+
+   \chapter{Modeling}
+   \section{Teoremi principali}
+   \subsection{Quantificatori e connettivi proposizionali}
+   \begin{itemize}
+      \item $\forall x.(\phi (x) \land \psi (x)) \equiv \forall x .\phi (x) \land \forall x. \psi (x)$ è valida
+      \item $\exists x.(\phi (x) \lor \psi (x)) \equiv \exists x. \phi (x) \lor \exists x. \psi (x)$ è valida
+      \item $\forall x.(\phi (x) \lor \psi (x)) \equiv \forall x. \phi (x) \lor \forall x. \psi (x)$ non è valida 
+      \item $\exists x.(\phi (x) \land \psi (x)) \equiv \exists x.\phi (x) \land \exists x. \psi (x)$ non è valida
+      \item $\forall x.\phi(x) \equiv \lnot \exists x.\lnot \phi(x)$ è valida
+      \item $\forall x.\exists x.\phi(x) \equiv \exists x.\phi(x)$ è valida
+      \item $\exists x.\forall x.\phi(x) \equiv \forall x.\phi(x)$ è valida
+      \item $\forall x.\phi(x) \equiv \exists x.\phi(x)$ non è valida 
+      \item $\forall x\exists y.\phi(x, y) \equiv \exists y\forall x.\phi(x, y)$ non è valida 
+   \end{itemize}
+
+   \subsection{Termini liberi per una variabile in una formula}
+   Sia $x$ una variabile occorente in un termine $t$, allora $t$ è libero rispetto alla variabile $x$ in una formula $\phi$ se e solo se tutte le occorrenze di $x$ non occorrono in $\phi$ all'interno dello scope del quantificatore, quindi se tutte le occorenze di $x$ in $\phi$ sono libere.
+
+   \section{Errori nella formalizzazione}
+   \begin{itemize}
+      \item \textbf{$\supset$ and $\forall$:} lo scope di un quantificatore universale può essere indebolito facendolo diventare la conseguenza di un implicazione dove la premessa (dell' implicazione) riduce lo scope.\\
+         \textbf{Esempio:} la formula:
+         \begin{center}
+            $\forall x(\text{WorksAt(UniTn, }x) \supset \text{Smart(}x))$
+         \end{center}
+         Vuol dire:
+         \begin{center}
+            "Everybody working at UniTn is smart"
+         \end{center}
+         Se avessi usato una congiunzione avrei rafforzato la formula anzichè ristretto lo scope:
+         \begin{center}
+            $\forall x(\text{WorksAt(UniTn, }x) \land \text{Smart(}x))$
+         \end{center}
+         Vuol dire:
+         \begin{center}
+            "Everybody works at UniTn and everyone is smart"
+         \end{center}
+      \item \textbf{$\land$ and $\exists$:} lo scope di un quantificatore di esistenza può essere indebolito aggiungendo una congiunza, la quale aggiungerà un nuovo voncolo da rispettare.\\
+         \textbf{Esempio:} la formula:
+         \begin{center}
+            $\exists x(\text{WorksAt(UniTn, }x) \land \text{Smart(}x))$
+         \end{center}
+         Vuol dire:
+         \begin{center}
+            "There is a person working at UniTn and she is smart"
+         \end{center}
+         Se avessi usato una implicazione avrei rafforzato la formula perchè partendo con una premessa vera l'interpretazione ha più modi di essere vera:
+         \begin{center}
+            $\exists x(\text{WorksAt(UniTn, }x) \supset \text{Smart(}x))$
+         \end{center}
+         Vuol dire:
+         \begin{center}
+            "There is a person so that if (s)he works at UniTn then (s)he is smart"
+         \end{center}
+      \item \textbf{Esiste almeno $1$:} l'esistenza non pone alcun limite inferiore se devo prendere domini diversi.\\
+         \textbf{Esempio:} Proviamo a scrivere la formula "There are at least two students attending the Logic class":
+         \begin{center}
+            $\exists x_1 \exists x_2( \text{attend}(x_1,\text{Logic}) \land \text{attend}(x_2,\text{Logic}))$
+         \end{center}
+         Ma la formula così scritta non garantisce che $x_1$ e $x_2$ siano distinti, per cui dobbiamo specificarlo.
+         \begin{center}
+            $\exists x_1 \exists x_2( \text{attend}(x_1,\text{Logic}) \land \text{attend}(x_2,\text{Logic}) \land x_1 \neq x_2)$
+         \end{center}  
+      \item \textbf{Esietono almeno $n$:} in generale per garantrire che $n$ elementi siano diversi usando l'esistenza dobbiamo avere una formula della seguente forma ($\phi$ sarà la formula da soddisfare):
+         \begin{center}
+            $\exists x_1 \dots x_n (\bigwedge^{n}_{i=1} \phi (x_i) \land \bigwedge^{n}_{i \neq j=1} x_j \neq n_i)$
+         \end{center}
+      \item \textbf{Esistono al più $n$:} il quantificatore universale, invece, non impone un limite superiore.\\
+         Per poter garantire un numero massimale forziamo che differenti quantificatori universali indichino lo stesso elemento ($\phi$ è la funzione da soddisfare).
+         \begin{center}
+            $\forall x_1 \dots x_n (\bigwedge^{n}_{i=1} \phi (x_i) \supset \bigvee^{n}_{i \neq j=1} x_j = n_i)$
+         \end{center}
+   \end{itemize}
+\end{document}

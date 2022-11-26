@@ -1,15 +1,11 @@
 \documentclass[../main.tex]{subfiles}
-\usepackage[margin=1.5cm]{geometry}
-\usepackage{hyperref}
-\usepackage{qtree}
-\usepackage{amsmath}
-\usepackage{makecell}
-\usepackage{listings}
-\usepackage{graphicx}
+
+\graphicspath{{\subfix{../img/}}}
 
 \newcommand{\spazio}{\vspace{1em} \newline}
 
 \begin{document}
+    \part{Logica Proposizionale}
     \chapter{La logica}
     \section{Intuizioni iniziali}
     Le caratteristiche della logica proposizionale sono:
@@ -656,15 +652,9 @@
     \end{gather*}
 
     \subsection{Regole $\beta$}
-    \begin{minipage}{0.333333\textwidth}
-        \Tree[.$\phi \lor \psi$ [.$\phi$ ] [.$\psi$ ]]
-    \end{minipage}
-    \begin{minipage}{0.333333\textwidth}
-        \Tree[.$\lnot (\phi \land \psi)$ [.$\lnot \phi$ ] [.$\lnot \psi$ ]]
-    \end{minipage}
-    \begin{minipage}{0.333333\textwidth}
-        \Tree[.$\phi \supset \psi$ [.$\lnot \phi$ ] [.$\psi$ ]]
-    \end{minipage}
+    \begin{center}
+        \includegraphics{beta_rules.png}
+    \end{center}
     Le regole $\beta$ sono disgiuntive quindi creano due rami distinti che sono entrambi da completare, e quindi bene lasciare queste regole per ultime e usarle solo se necessario.
 
     \subsection{Controllare la soddisfacibilità}

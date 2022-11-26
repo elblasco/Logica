@@ -1,12 +1,11 @@
 \documentclass[../main.tex]{subfiles}
-\usepackage[margin=1.5cm]{geometry}
-\usepackage{hyperref}
-\usepackage{qtree}
-\usepackage{amsmath}
-\usepackage{makecell}
+
+\graphicspath{{\subfix{../img/}}}
+
 \newcommand{\spazio}{\vspace{1em} \newline}
 
 \begin{document}
+    \part{Modellazione}
     \chapter{Rappresentazione}
 
     \section{Rappresentazione mentale}
@@ -241,10 +240,7 @@
     \end{itemize}
     Ora posso prendere in esempio la stringa (A $\supset$ (B $\land$ C)) $\lor$ D e costruire l'albero per rappresentarla.
     \begin{center}
-        \Tree [.{(A $\supset$ (B $\land$ C)) $\lor$ D} [.{A $\supset$ (B $\land$ C)}
-                [.A ] [$\supset$ ] [.{(B $\land$ C)} 
-                    [.B ] [$\land$ ] [.C ] ] ] 
-                [.$\lor$ ] [.D ] ]
+        \includegraphics{formula_ad_albero.png}
     \end{center}
 
     \subsection{Linguaggi formali}
