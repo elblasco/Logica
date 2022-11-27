@@ -48,7 +48,7 @@
       \item $\exists$ person.Spy(person)
    \end{itemize}
    \vspace{1em}
-   Con la logca del primo ordine posso anche annidare formule.
+   Con la logica del primo ordine posso anche annidare formule.
    \begin{itemize}
       \item The father of Luca is Italian.
    \end{itemize}
@@ -150,7 +150,7 @@
    \begin{center}
       $a: \text{Var(A)} \to \Delta$
    \end{center}
-   Scriveremo $a[x/d]$ per inidcare l'asseganmento $a$ su tutte le variabili tranne $x$ che sono associate a $d$ con $d \in \Delta$.
+   Scriveremo $a[x/d]$ per inidcare l'assegnamento $a$ su tutte le variabili tranne $x$ che sono associate a $d$ con $d \in \Delta$.
 
    \section{Conseguenza logica}
    Siano $L$ un linguaggio formale, $T \subseteq L$ una teoria formale, $I : L \to D$ una funzioane di interpretazione per $L$, $M \subseteq D$ un modello per $T$.\\
@@ -194,7 +194,7 @@
    \begin{center}
       $I \models \phi [a]$
    \end{center}
-   \textbf{Modello, soddisfacibilità:} un interpretazione $I$ è un modello per $\phi$ se esiste un asseganmento $a$ tale che $I$ sia un modello per $\phi$ secondo $a$, una fomrula $\phi$ è soddisfacibile se esiste una qualsiasi $I$ e una $a$ tale che $I \models \phi [a]$.
+   \textbf{Modello, soddisfacibilità:} un interpretazione $I$ è un modello per $\phi$ se esiste un assengamento $a$ tale che $I$ sia un modello per $\phi$ secondo $a$, una fomrula $\phi$ è soddisfacibile se esiste una qualsiasi $I$ e una $a$ tale che $I \models \phi [a]$.
    \spazio
    \textbf{Implicazione, verità, soddisfacibilità:} le seguenti affermazioni sono equivalenti all'enuinciato $I \models A$:
    \begin{itemize}
@@ -276,4 +276,111 @@
             $\forall x_1 \dots x_n (\bigwedge^{n}_{i=1} \phi (x_i) \supset \bigvee^{n}_{i \neq j=1} x_j = n_i)$
          \end{center}
    \end{itemize}
+
+   \chapter{Calculus}
+   \section{Nozioni basiche}
+   \textbf{Soddisfacibilità con riferimento ad un assegnamento:} un'interpretazione $I$ soddisfa una formula $\phi$ con un assegnamento $a$ secondo le seguenti formule:
+   \begin{center}
+      \begin{tabular}{c c c}
+         $I \models t_1 = t_2 [a]$ & iff & $I(t_1)[a]=I(t_2)[a]$\\
+         $I \models P(t_1, \dots ,t_n)[a]$ & iff & $< I(t_1)[a], \dots , I(t_n)[a] > \in I(P)$\\
+         $I \models (\phi \land \psi)[a]$ & iff & $I \models \phi[a] and I \models \psi[a]$\\
+         $I \models (\phi \lor \psi)[a]$ & iff & $I \models \phi[a] or I \models \psi[a]$\\
+         $I \models (\phi \supset \psi)[a]$ & iff & $I \not \models \phi [a] or I \models \psi[a]$\\
+         $I \models \lnot \phi[a]$ & iff & $I \not \models \phi[a]$\\
+         $I \models (\phi \equiv \psi)[a]$ & iff & $I \models \phi[a] iff I \models \psi[a]$\\
+         $I \models \exists x \phi[a]$ & iff & there is a $d \in \Delta$ such that $I \models \phi[a[x/d]]$\\
+         $I \models \forall x \phi[a]$ & iff & for all $d \in \Delta, I \models \phi[a[x/d]]$
+      \end{tabular}
+   \end{center}
+   \textbf{Modello rispetto ad un assegnamento:} un'interpretazione $I$ è un modello di $\phi$ secondo un'assegnamento $a$ se:
+   \begin{center}
+      $I \models \phi[a]$
+   \end{center}
+   \textbf{Insoddisfacibile:} una formula è insoddisfacibile se non è soddisfacibile.
+   \spazio
+   \textbf{Validità:} una formula $\phi$ è valida se per ogni interpretazione $I$ e ogni assegnamento $a$ vale che:
+   \begin{center}
+      $I \models \phi[a]$
+   \end{center}
+   Nella logica del primo ordine valgono le stesse proprietà della logica proposizionale, quindi:
+   \begin{center}
+      Valida $\supset$ Soddisfacibile $\supset \lnot$ Insoddisfacibile\\
+      \vspace{4ex}
+      Insoddisfacibile $\supset \lnot$ Soddisfacibile $\supset \lnot$ Valida\\
+      \vspace{4ex}
+      \begin{tabular}{c c}
+         \hline
+         se A è & allora $\lnot$ A è\\
+         \hline
+         \hline
+         Valida & Insoddisfacibile\\
+         Soddisfacibile & $\lnot$ Valida\\
+         $\lnot$ Valida & Soddisfacibile\\
+         Inddisfacibile & Valida
+      \end{tabular}
+   \end{center}
+   \textbf{Conseguenza logica:} una formula $\phi$ è una conseguenza logica di un insieme di formule $\Gamma$  se per ogni interpretazione $I$ e ogni assegnamento $a$
+   \begin{center}
+      $I \models \Gamma [a]$ implica $I \models \phi [a]$
+   \end{center}
+   dove $I \models \Gamma [a]$ significa che $I$ soddisfa tutte le formule di $\Gamma$ sotto $a$.
+   \spazio
+   \textbf{Equivalenza logica:} due formule $\phi$ e $\psi$ sono logicamente equivalente se e solo se $\phi \models \psi$ e $\psi \models \phi$, scriveremo:
+   \begin{center}
+      $\models \phi \equiv \psi$
+   \end{center}
+   \textbf{Teorema di deduzione:} $\Gamma , \phi \models \psi$ se e solo se $\Gamma \models \phi \supset \psi$.
+   \spazio
+   \textbf{Principio di refutazione:} $\Gamma \models \phi$ se e solo se $\Gamma \cup \{ \lnot \phi \}$ è insoddisfacibile.
+   \spazio
+   \textbf{Formule chiuse:} nelle formule chiuse validità, soddisfacibilità, insoddisfacibile, conseguenza logica e equivalenza logica non dipendono dall'assegnamento, infatti nella notazione scriveremo solo $\phi$ anzichè $\phi[a]$.
+   \spazio
+   \textbf{Invarianza dell'assegnazione:} siano $[a^1]$ e $[a^2]$ due assegnamenti allora $I \models [a^1]$ se e solo se $I \models [a^2]$ quando $[a^1]$ e $[a^2]$ coincidono in una variabile libera in $\phi$.
+
+   \chapter{Inferenza della DPLL}
+   \section{Dominio finito}
+   \textbf{Estensione finita del predicato:} questa assunzione enuncia che un predicato $P$ è vero solo per un sottoinsieme finito del proprio dominio originale.\\
+   L'assunzione può essere formalizzata nella formula:
+   \begin{center}
+      $\forall x(P(x) \equiv (x=c_1 \lor \dots \lor x=c_n))$
+   \end{center}
+   \textbf{Assunzione del nome univoco:} un linguaggio deve contenere uno e un solo nome per ogni elemento del dominio, assumendo che un linguaggio contenga le costanti $c_1, \dots , c_n$ abbiamo:
+   \begin{center}
+      $\phi_\Delta = \{ c_1, \dots , c_n \}$\\
+      \vspace{4ex}
+      $\{ c_1, \dots , c_n \} = \biggl( \bigwedge_{i \neq j=1}^{n} c_i \neq c_j \land \forall x \biggl( \bigvee_{i=1}^{n} c_i=x \biggr) \biggr)$
+   \end{center}
+   \textbf{Espansione dei quantificatori:} secondo l'ipotesi di un dominio finito con dei nomi univoci la logica del primo ordine può essere proposizionalizzata secondo le seguenti equivalenze:
+   \begin{itemize}
+      \item $\phi_\Delta = \{ c_1, \dots , c_n \} \models \forall x.\phi(x) \equiv \phi(c_1) \land \dots \land \phi(c_n)$
+      \item $\phi_\Delta = \{ c_1, \dots , c_n \} \models \exists x.\phi(x) \equiv \phi(c_1) \lor \dots \lor \phi(c_n)$
+   \end{itemize}
+   \textbf{Esempio:} prendiamo la formula in linguaggio naturale "Everybody living in Toulouse speak french or spanish", tradotta in FOL risulta in:
+   \begin{center}
+      $\forall x.( \text{Lives}( x,\text{Toulouse} ) \supset ( \text{Speaks}( x,\text{French} ) \lor \text{Speaks}( x,\text{Spanish} ) ) )$
+   \end{center}
+   Assumiamo che l'insieme delle persone sia:
+   \begin{center}
+      $\Delta_1=$\{Robert, Luis, Naji\}
+   \end{center}
+   Allora possiamo rendere ground la precende formula, e riscriverla come segue:
+   \begin{center}
+      (Lives(Robert,Toulouse) $\supset$ Speaks(Robert,French) $\lor$ Speaks(Robert,Spanish)) $\land$\\
+      (Lives(Luis,Toulouse) $\supset$ Speaks(Luis,French) $\lor$ Speaks(Luis,Spanish)) $\land$\\
+      (Lives(Naji,Toulouse) $\supset$ Speaks(Naji,French) $\lor$ Speaks(Naji,Spanish)) 
+   \end{center}
+   \textbf{Esempio:}  prendiamo la formula in linguaggio naturale "If someone is noisy, everyone is annoyed", tradotta in FOL risulta:
+   \begin{center}
+      $\exists x.( \text{Noisy}(x) \supset \forall y.( \text{Annoyed}(y) ) )$
+   \end{center}Assumiamo che l'insieme delle persone sia:
+   \begin{center}
+      $\Delta_1=$\{Marco, Francesco, Pierre\}
+   \end{center}
+   Allora possiamo rendere ground la precende formula, e riscriverla come segue (\textbf{N.B.} non viene detto che $x \neq y$):
+   \begin{center}
+      (Noisy(Marco) $\supset$ Annoyed(Marco) $\land$ Annoyed(Francesco) $\land$ Annoyed(Pierre)) $\lor$\\
+      (Noisy(Francesco) $\supset$ Annoyed(Marco) $\land$ Annoyed(Francesco) $\land$ Annoyed(Pierre))$\lor$\\
+      (Noisy(Pierre) $\supset$ Annoyed(Marco) $\land$ Annoyed(Francesco) $\land$ Annoyed(Pierre))
+   \end{center}
 \end{document}
