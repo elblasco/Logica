@@ -267,14 +267,14 @@
             $\exists x_1 \exists x_2( \text{attend}(x_1,\text{Logic}) \land \text{attend}(x_2,\text{Logic}) \land x_1 \neq x_2)$
          \end{center}  
       \item \textbf{Esietono almeno $n$:} in generale per garantrire che $n$ elementi siano diversi usando l'esistenza dobbiamo avere una formula della seguente forma ($\phi$ sarà la formula da soddisfare):
-         \begin{center}
-            $\exists x_1 \dots x_n (\bigwedge^{n}_{i=1} \phi (x_i) \land \bigwedge^{n}_{i \neq j=1} x_j \neq n_i)$
-         \end{center}
+         \begin{gather*}
+            \exists x_1 \dots x_n (\bigwedge^{n}_{i=1}{\phi (x_i)} \land \bigwedge^{n}_{i \neq j=1}{x_j \neq n_i})
+         \end{gather*}
       \item \textbf{Esistono al più $n$:} il quantificatore universale, invece, non impone un limite superiore.\\
          Per poter garantire un numero massimale forziamo che differenti quantificatori universali indichino lo stesso elemento ($\phi$ è la funzione da soddisfare).
-         \begin{center}
-            $\forall x_1 \dots x_n (\bigwedge^{n}_{i=1} \phi (x_i) \supset \bigvee^{n}_{i \neq j=1} x_j = n_i)$
-         \end{center}
+         \begin{gather*}
+            \forall x_1 \dots x_{n+1} (\bigwedge^{n+1}_{i=1}{\phi (x_i)} \supset \bigvee^{n+1}_{i \neq j=1}{x_j = n_i})
+         \end{gather*}
    \end{itemize}
 
    \chapter{Calculus}
@@ -346,11 +346,11 @@
       $\forall x(P(x) \equiv (x=c_1 \lor \dots \lor x=c_n))$
    \end{center}
    \textbf{Assunzione del nome univoco:} un linguaggio deve contenere uno e un solo nome per ogni elemento del dominio, assumendo che un linguaggio contenga le costanti $c_1, \dots , c_n$ abbiamo:
-   \begin{center}
-      $\phi_\Delta = \{ c_1, \dots , c_n \}$\\
+   \begin{gather*}
+      \phi_\Delta = \{ c_1, \dots , c_n \}\\
       \vspace{4ex}
-      $\{ c_1, \dots , c_n \} = \biggl( \bigwedge_{i \neq j=1}^{n} c_i \neq c_j \land \forall x \biggl( \bigvee_{i=1}^{n} c_i=x \biggr) \biggr)$
-   \end{center}
+      \{ c_1, \dots , c_n \} = \biggl( \bigwedge_{i \neq j=1}^{n}{c_i \neq c_j} \land \forall x \biggl( \bigvee_{i=1}^{n}{c_i=x} \biggr) \biggr)
+   \end{gather*}
    \textbf{Espansione dei quantificatori:} secondo l'ipotesi di un dominio finito con dei nomi univoci la logica del primo ordine può essere proposizionalizzata secondo le seguenti equivalenze:
    \begin{itemize}
       \item $\phi_\Delta = \{ c_1, \dots , c_n \} \models \forall x.\phi(x) \equiv \phi(c_1) \land \dots \land \phi(c_n)$
@@ -383,4 +383,219 @@
       (Noisy(Francesco) $\supset$ Annoyed(Marco) $\land$ Annoyed(Francesco) $\land$ Annoyed(Pierre))$\lor$\\
       (Noisy(Pierre) $\supset$ Annoyed(Marco) $\land$ Annoyed(Francesco) $\land$ Annoyed(Pierre))
    \end{center}
+
+   \section{PNF - Prenex Normal Form}
+   \textbf{Prenex Normal Form:} una formula in logica del primo ordine si dice essere in PNF se ha la seguente forma:
+   \begin{center}
+      $Q_1 x_1 Q_2 x_2 \dots Q_n x_n .P$
+   \end{center}
+   dove:
+   \begin{itemize}
+      \item $Q_i$ è un quantificatore di esistenza o universale.
+      \item La o del punto precedente è esclusiva.
+      \item $P$ è un quantificatore libero.
+   \end{itemize}
+   $Q_1 x_1 Q_2 x_2 \dots Q_n x_n$ è detto prefisso mentre $P$ è la matrice.
+   \spazio
+   Ogni formula di logica del primo ordine può essere scritta in PNF.
+   \spazio
+   \textbf{Passi della PNF:}
+   \begin{itemize}
+      \item Muovere le negazionbi all'interno finchè non ci saranno più quantificatori nello scope di una negazione.
+      \item Rinominare le variabili finchè ogni variabile che segue un quantificatore avrà un nome univoco.
+      \item Muovere all'esterno i quantificatori leggendo la formula da sinistra a destra.
+   \end{itemize}
+   \begin{center}
+      \begin{tabular}{c c c c}
+         \textbf{Formula} & & \textbf{versione PNF} & \textbf{Assunzioni}\\
+         \hline
+         $\lnot \forall x.\phi x$ & $\equiv$ & $\exists x.(\lnot \phi (x))$ & \\
+         $\lnot \exists x.\phi x$ & $\equiv$ & $\forall x.(\lnot \phi (x))$ & \\
+         $\forall x.(\phi (x)) \land \psi$ & $\equiv$ & $\forall x.(\phi (x) \land \psi)$ & $\forall x.\top$\\
+         $\exists x.(\phi (x)) \land \psi$ & $\equiv$ & $\exists x.(\phi (x) \land \psi)$ & $\exists x.\top$\\
+         $\forall x.(\phi (x)) \lor \psi$ & $\equiv$ & $\forall x.(\phi (x) \lor \psi)$ & $\forall x.\top$\\
+         $\exists x.(\phi (x)) \lor \psi$ & $\equiv$ & $\exists x.(\phi (x) \lor \psi)$ & $\exists x.\top$\\
+         $\forall x.(\phi (x)) \supset \psi$ & $\equiv$ & $\exists x.(\phi (x) \supset \psi)$ & $\exists x.\top$\\
+         $\exists x.(\phi (x)) \supset \psi$ & $\equiv$ & $\forall x.(\phi (x) \supset \psi)$ & $\forall x.\top$\\
+         $\psi \supset \forall x.(\phi (x))$ & $\equiv$ & $\forall x.(\psi \supset \phi (x))$ & $\forall x.\top$\\
+         $\psi \supset \exists x.(\phi (x))$ & $\equiv$ & $\exists x.(\psi \supset \phi (x))$ & $\exists x.\top$
+      \end{tabular}
+   \end{center}
+   \vspace{4ex}
+   \textbf{Proposizione:} ogni formula in PNF con la forma $\exists x_1 \exists x_2 \dots \forall x_{n-1} \forall x_n .P$ tale che:
+   \begin{itemize}
+      \item La sua matrice non contenga alcuna funzione e \dots
+      \item I suoi prefissi sono composti da una serie (anche vuota) di quantificatori di esistenza e una serie (anche vuota) di quantificatori universali.
+   \end{itemize}
+   è deducibile quindi valida/soddisfacibile/insoddisfacibile.
+
+   \section{DPLL in FOL}
+   Adesso abbiamo una formula in FOL che abbiamo trasformato in PNF e a cui abbiamo "ristretto" il dominio per farla diventare una formula in PL.\\
+   Essendo una formula in PL possimao applicare le formule per scriverla in CNF e poter applicare DPLL.
+   \begin{align*}
+      CNF(p)&=\text{p se p} \in \textbf{PROP}\\
+      CNF(\lnot p) &=\text{$\lnot$p se p} \in \textbf{PROP}\\
+      CNF(\phi \supset \psi) &= CNF(\lnot \phi) \otimes CNF(\psi)\\
+      CNF(\phi \land \psi) &= CNF(\phi) \land CNF(\psi)\\
+      CNF(\phi \lor \psi) &= CNF(\phi) \otimes CNF(\psi)\\
+      CNF(\phi \equiv \psi) &= CNF(\phi \supset \psi) \land CNF(\psi \supset \phi)\\
+      CNF(\lnot \lnot \phi) &= CNF(\phi)\\
+      CNF(\lnot (\phi \supset \psi)) &= CNF(\phi) \land CNF(\lnot \psi)\\
+      CNF(\lnot (\phi \land \psi)) &= CNF(\lnot \phi) \otimes CNF(\lnot \psi)\\
+      CNF(\lnot (\phi \lor \psi)) &= CNF(\lnot \phi) \land CNF(\lnot \psi)\\
+      CNF(\lnot (\phi \equiv \psi)) &= CNF(\phi \land \lnot \psi) \otimes CNF(\psi \land \lnot \phi)
+   \end{align*}
+  Dove $(C_1 \land \dots \land C_n) \otimes (D_1 \land \dots \land D_m)$ è definito come:
+  \begin{center}
+      $(C_1 \lor D_1) \land \dots \land(C_1 \lor D_m) \land \dots \land(C_n \lor D_1) \land \dots \land(C_n \lor D_m)$
+  \end{center}
+
+  \subsubsection{Esempio}
+  Abbuiamo la frase:
+  \begin{center}
+      A mechanic likes herself
+  \end{center}
+  Tradotta in FOL risulta essere:
+  \begin{center}
+      $\exists x.(\text{Mechanic}(x) \land \text{Likes}(x, x))$
+  \end{center}
+  Poniamo come dominio sottoinsieme del dominio $\Delta=$\{Amanda, Miriam\}, quindi la formula ground risulta essere:
+  \begin{center}
+      $\psi = p \land q \lor p_1 \land q_1$
+  \end{center}
+  Adesso che abbiamo una formula in PL possiamo riscriverla in CNF per applicare DPLL e vedere se è soddisfacibile.
+  \begin{align*}
+      (p \land q) & \lor (p_1 \land q_1)\\
+      (p \land q)  & \otimes (p_1 \land q_1)\\
+      (p \lor p_1) \land (p \lor q_1) & \land (q \lor p_1) \land (q \lor q_1)\\
+      ( \top \lor p_1) \land ( \top \lor q_1) & \land (q \lor p_1) \land (q \lor q_1)|_p\\
+      (q \lor p_1) & \land (q \lor q_1)\\
+      ( \top \lor p_1) & \land ( \top \lor q_1)|_q
+  \end{align*}
+
+  \chapter{Inferenza dei Tableaux}
+  \section{Tableaux del primo ordine}
+  \textbf{Tableaux del primo ordine:} è un albero radicato, ogni suo nodo contiene una frase in FOL.
+
+  Il figlio di un nodo $n$ è generato applicando una serie di regole di espansione a $n$ o a uno degli antenati di $n$.
+  \spazio
+  Il metodo del tablueaux è composto da 3 elementi:
+  \begin{itemize}
+      \item Un dato insieme di premesse $\Gamma$ e conclusioni $\phi$.
+      \item \textbf{Un compito:} provare che $\Gamma \models \phi$.
+      \item \textbf{Procedura:} mostrare che $\Gamma \cup \{ \lnot \phi \}$ è non soddisfacibile che è equivalente a dimostrare che $\Gamma \cup \{ \phi \}$ è soddisfacibile.
+  \end{itemize}
+  \subsection{Regole $\alpha$}
+  Sono le stesse della logica proposizionale.\\
+  \begin{minipage}{0.333333\textwidth}
+   \begin{gather*}
+       \phi \land \psi\\
+       \downarrow\\
+       \phi\\
+       \psi
+   \end{gather*}
+   \end{minipage}
+   \begin{minipage}{0.333333\textwidth}
+      \begin{gather*}
+         \lnot (\phi \lor \psi)\\
+         \downarrow\\
+         \lnot \phi\\
+         \lnot \psi
+      \end{gather*}
+   \end{minipage}
+   \begin{minipage}{0.333333\textwidth}
+      \begin{gather*}
+         \lnot (\phi \supset \psi)\\
+         \downarrow\\
+         \phi\\
+         \lnot \psi
+      \end{gather*}
+   \end{minipage}
+   \subsection{Regole $\beta$}
+   Anche le regole $\beta$ sono uguali a quelle delle logica proposizioanale.
+   \begin{center}
+      \includegraphics{beta_rules.png}
+   \end{center}
+   \subsection{Regole $\gamma$}
+   \begin{minipage}{0.5\textwidth}
+      \begin{gather*}
+         \forall x. \phi (x)\\
+         \downarrow\\
+         \phi (t)
+      \end{gather*}
+   \end{minipage}
+   \begin{minipage}{0.5\textwidth}
+      \begin{gather*}
+         \lnot \exists x. \phi (x)\\
+         \downarrow\\
+         \lnot \phi (t)
+      \end{gather*}
+   \end{minipage}
+   Dove $t$ è un nuovo termine libero rispetto a $x$ in $\phi$.
+   \subsection{Regole $\sigma$}
+   \begin{minipage}{0.5\textwidth}
+      \begin{gather*}
+         \lnot \forall x. \phi (x)\\
+         \downarrow\\
+         \lnot \phi (c)
+      \end{gather*}
+   \end{minipage}
+   \begin{minipage}{0.5\textwidth}
+      \begin{gather*}
+         \exists x. \phi (x)\\
+         \downarrow\\
+         \phi (c)
+      \end{gather*}
+   \end{minipage}
+   Dove $c$ è una nuova costante non precedentemente apparsa nel tablueaux.
+   \subsection{Sostituzione $\phi [x/t]$}
+   In questa notazione $x$ è una variabile libera mentre $t$ è un termine, con la notazione $\phi [x/t]$ intendiamo sostituira tutte le occorrenze di $x$ con $t$ in $\phi$.
+   \subsubsection{Esempi:}
+   \begin{gather*}
+      P(x, y, f(x))[x/a] = P(a, y, f (a))\\
+       \forall x.P(x, y)[x/b] = \text{Non permesso perchè x non è libera}\\
+       \exists x.P(x, x)  \land Q(x)[x/c] =  \exists x.P(x, x)  \land Q(c)\\
+      P(x, g(y))[y/f (x)] = P(x, g(f (x)))\\
+       \forall x.P(x, y)[y/f (x)] = \text{Non permesso perchè f(x) non è libera per y nello scope di y}
+   \end{gather*}
+   \subsection{Esempio di Tableaux}
+   Verifichiamo ora la validità/soddisfacibilità della seguente formula:
+   \begin{center}
+      $\phi =  \forall x, y(P(x) \supset Q(y))  \supset ( \exists x.P(x)  \supset  \forall y.Q(y))$
+   \end{center}
+   Verifichiamo la validità, quindi facciamo il tablueaux per $\lnot \phi$.
+   \begin{center}
+      \includegraphics[scale=0.6]{Tableaux_FOL_1.png}
+   \end{center}
+   \vspace{4ex}
+   Verifichiamo ora la validità/soddisfacibilità della seguente formula:
+   \begin{center}
+      $( \exists x.(P(x)  \lor Q(x))) \equiv (( \exists x.P(x))  \lor ( \exists x.Q(x)))$
+   \end{center}
+   Verifichiamo la validità, quindi facciamo il tablueaux per $\lnot \phi$.
+   \begin{center}
+      \includegraphics[scale=0.6]{Tableaux_FOL_2.png}
+   \end{center}
+
+   \section{Gestione dei Tableaux}
+   In questa sezione ci sono tutte le regole di come bisogna espandere un Tableaux.
+   \spazio
+   \textbf{Espansione dell'esietnza:} se possibile è bene iniziare applicando tutte le regole $\sigma$ per ottenere tutti i termini con cui lavoreremo.
+   \spazio
+   \textbf{Espansione universale:} dobbiamo applicare le regole $\gamma$ dopo le regole $\sigma$, quando applicate devono matchare i termini già presenti nel Tableaux in particolare matchare le costanti introdotte con le regole $\sigma$.
+
+   Il termine inserito deve essere inserito perchè si verifichi sempre una chiusura del ramo.
+
+   \subsubsection{Esempio}
+   Verifichiamo se $\lnot (\forall x.P(x) \land \exists x. \lnot P(f(x)))$ è valida/soddisfacibile/insoddisfacibile.
+   \begin{gather*}
+      \forall x.P(x) \land \exists x. \lnot P(f(x))\\
+      downarrow\\
+      \forall x.P(x)\\
+      \exists x. \lnot P(f(x))\\
+      \downarrow
+      \lnot P(f(c))\\
+      \downarrow\\
+      P(f(c))
+   \end{gather*} 
 \end{document}
