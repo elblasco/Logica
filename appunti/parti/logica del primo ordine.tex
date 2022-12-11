@@ -17,7 +17,7 @@
    \begin{itemize}
       \item Termini complessi e formule complesse.
       \item Le formule primitive molte volte non sono parte del linguaggio.
-      \item Termini e formule atomiche sono interpretate su un domini di fatti e entità.\\
+      \item Termini e formule atomiche sono interpretate su un dominio di fatti e entità.\\
          Le formule complesse sono interpretate attraverso un dominio di giudizi.
       \item Le formule complesse sono formate un qualsiasi numero di connettivi proposizionali più un numero di quantificatori.
       \item I quantificatori sono: $\forall$ e $\exists$.
@@ -590,12 +590,56 @@
    Verifichiamo se $\lnot (\forall x.P(x) \land \exists x. \lnot P(f(x)))$ è valida/soddisfacibile/insoddisfacibile.
    \begin{gather*}
       \forall x.P(x) \land \exists x. \lnot P(f(x))\\
-      downarrow\\
+      \downarrow\\
       \forall x.P(x)\\
       \exists x. \lnot P(f(x))\\
-      \downarrow
+      \downarrow\\
       \lnot P(f(c))\\
       \downarrow\\
-      P(f(c))
+      P(f(c))\\
+      \downarrow\\
+      \times
    \end{gather*} 
+
+   \subsection{Non-terminazione}
+   A differenza della logica proposizionale in FOL i modelli possono essere infiniti, esistono infatti formule soddisfatte solo da modelli infiniti.\\
+   Se cerchiamo di costruire un Tableaux per queste formule in cerca di un modello finiremo in un loop di espansioni.
+
+   \subsubsection{Esempio}
+   \begin{center}
+      \includegraphics[scale=0.7]{Tableaux_FOL_loop.png}
+   \end{center}
+   A differenza della logica proposizionale in FOL la costruzione dei Tableaux non assicura di avere una fine.
+   \begin{itemize}
+      \item Se la formule $\phi$ che indica la radice è insoddisfacibile allora il Tableaux ha una fine e può sempre chiudere.
+      \item Se la formule $\phi$ che indica la radice è soddisfacibile la costruzione del Tableaux può finire a rimanere con i rami aperti oppure la costruzione può non terminare mai.
+   \end{itemize}
+   Ma come facciamo a sapere che siamo in un loop infinito?\\
+   Se non abbiamo ancora chiuso un Tableaux è perchè o può essere espanso in modo infinito oppure perchè non abbiamo trovato ancora un modo corretto di costruirlo.\\
+   Non possiamo determinarlo.
+
+   \subsection{Contromodello}
+   \textbf{Ramo aperto saturato:} un ramo aperto si chiama saturato se ogni non letterale è stato analizzato almeno una volta e ogni formula $\gamma$ è stata istanziata con ogni simbolo, che possiamo costruire con i simboli di funzione, su quel ramo.
+   \spazio
+   \textbf{Prova fallimentare:} un Tableaux con un ramo aperto e saturo non potrà mai essere chiuso, quindi possiamo fermarci subito e dichiarare quella prova fallimentare.
+   \spazio
+   Un modello $M$, che è un interpretazione, indica come interpretare costanti (elementi del dominio), funzioni e simboli predicativi.
+   \begin{itemize}
+      \item Dominio: insieme di tutti i termini che possiamo costruire con i simboli di funzioni che appaiono sul ramo.\\
+         E' possibile introdurre una costante fittizia per il valore di un termine.
+      \item Simboli di funzione: interpretati come scritti o usando una costante fittizia.
+      \item Simboli relazionali: interpretati in termini delle loro occorrenze nel ramo.
+   \end{itemize}
+
+   \subsubsection{Esempio}
+   \begin{center}
+      \includegraphics[scale=0.6]{Tableaux_FOL_coutermodel.png}
+   \end{center}
+   Consideriamo il Tableaux sopra, dalla formula nel ramo aperto è possibile costrire un modello per la formula alla radice.\\
+   Per la costruzione del modello prendo:
+   \begin{itemize}
+      \item $\Delta=$\{a\} la costante apparsa nella formula.
+      \item $I(P)$=\{a\} perchè $P$(a) appare nel ramo aperto.
+      \item $I(Q)=\{\}$ perchè la formula $\lnot Q(a)$ appare nel ramo aperto.
+   \end{itemize}
 \end{document}

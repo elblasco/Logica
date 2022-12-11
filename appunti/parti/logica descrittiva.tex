@@ -1,0 +1,155 @@
+\documentclass[../main.tex]{subfiles}
+
+\graphicspath{{\subfix{../img/}}}
+
+\newcommand{\spazio}{\vspace{2em} \newline}
+
+\begin{document}
+   \part{Logica Descrittiva}
+
+   \chapter{Logica}
+
+   \section{Intuizioni}
+   La FOL con la sua espressività permette di usare:
+   \begin{itemize}
+      \item costanti
+      \item variabili libere
+      \item simboli di funzioni
+      \item \dots
+   \end{itemize}
+   Ma nella maggior parte delle applicazioni dell'informatica questa espressività non è richiesta.\\
+   La grande espressività della FOL è motivita dal suo uso, ma si porta dietro dei costi di analisi molto elevati.\\
+   Il linguaggio della FOL non ha struttura, risulta quindi appiattito, questo nonostante elementi diversi formalizzino intuizioni diverse.\\
+   La FOL (e la PL) nella loro semantica hanno lo scopo di dare giudizi riguardanti dei fatti e quindi anche selle conseguenze sui fatti risultati veri.\\
+   Per lo stesso motivo FOL e PL non forniscono alcuno strumento per ragionare sui fatti perchè codificati in formule atomiche, il predicato $P(t_1, \dots , t_n)$ viene usato solo per determinare quando lo stato è vero o falso.
+   \begin{center}
+      \begin{tabular}{c c c}
+         $I \models t_1 = t_2[a]$ & iff & $I(t_1)[a] = I(t_2)[a]$\\
+         $I \models P(t_1, \dots ,t_n)[a]$ & iff & $< I(t_1)[a], \dots, I(t_n)[a] > \in I(P) >$
+      \end{tabular}
+   \end{center}
+
+   \subsection{Da FOL a logica descrittiva (DL)}
+   \textbf{Espressività:} l'espressività è molto limitata perchè non abbiamo variabili libere, simboli di funzione e abbiamo solo predicati binari come simboli primitivi.
+   \spazio
+   \textbf{Decidibilità:} dobbiamo ridurre i domini in domini finiti e usare l'assunzione dei nomi univoci, lo standard sono le pratiche dei domini relazionali.
+   \spazio
+   \textbf{Mancanza di struttura:} per questa mancanza della FOL vengono esplicitate varie distinzioni:
+   \begin{itemize}
+      \item Come sono costrite le classi.
+      \item Classi e ruoli (predicati unari vs binari).
+      \item Schemi contro schemi popolati (TBox e ABox).
+      \item Ragionamento schematico  (knowledge-level) contro ragionamento ground  (data-level).
+   \end{itemize}
+   \textbf{Scopo:} lo scopo della DL non è ragionare su cosa è vero ma ragionare sui fatti e sulle loro componenti.
+
+   \section{Due logiche}
+   \begin{itemize}
+      \item \textbf{Conoscenze:} 
+         \begin{itemize}
+            \item Linguaggio naturale: informazioni e principi.
+            \item Computer Science: il nome delle classi, il nome delle relazioni.
+            \item Logica: predicati simbolici, qunatificatori universali e di esistenza.
+         \end{itemize} 
+      \item \textbf{Dati:}
+         \begin{itemize}
+            \item Linguaggio naturale: informazioni fattuali o calcolo.
+            \item Computer Science: valori dei dati, enità e proprietà degli oggetti.
+            \item Logic: costanti, termini ground e formule ground.
+         \end{itemize}
+   \end{itemize}
+   L'usuale linguaggio è diviso in due insiemi ma collegati tra di loro:
+   \begin{itemize}
+      \item \textbf{TBox - la logica della conoscenza:} il linguaggio e la logica usati per specificare e ragionare sugli schemi usati per modellare i dati.\\
+         Le TBox mappano direttamente in modelli Extended Entity-relationship (EER), relazioni dei DB e Knowledge Graphs (KG).
+      \item \textbf{ABox - la logica dei dati:} il linguaggio e la logica usati per memorizzare e ragionare sui dati, si mappa sui dati contenuti nei DB e nei KG.
+   \end{itemize}
+   \textbf{T} significa \textbf{Terminologia} mentre \textbf{A} vuol dire \textbf{Asserzione}, sono collegati perchè le asserzioni fatte nelle ABox sfrutta la terminologia definita dalle TBox.\\
+   In questo corso vedremmo la logica descrittiva $\mathcal{ALC}$, ovvero la DL la cui parte proposizionele corrisponde perfettamente alla PL.
+
+   \section{Sintassi TBox}
+   \textbf{Alfabeto:} un alfabeto è composto dai seguenti simboli:
+   \begin{itemize}
+      \item Simboli non logici: nomi di concetti (classi) quindi come persone, animali, cose \dots
+      \item Simboli logici: 
+         \begin{itemize}
+            \item $\sqcap$ congiunzione, $\sqcup$ disgiunzione e $\lnot$ negazione di concetto.
+            \item $\top$ dominio di interpretazione e $\perp$ insieme vuoto.
+         \end{itemize}
+   \end{itemize}
+   \textbf{Conectto:} è un insieme di entità, la relazione formalizzata nei DB.
+
+   Di seguito parleremo di concetto (interpretazione) intendendo il nome del concetto (linguaggio). 
+   \spazio
+   \textbf{Ruolo:} un lafabeto contiene i seguenti simboli:
+   \begin{itemize}
+      \item Simboli non logici: nomi di ruoli (relazioni) $R_1, R_2, \dots , R_n$.
+      \item Simboli logici: $\forall$ e $\exists$.
+   \end{itemize}
+
+   \subsubsection{Esempio di ruoli}
+   Consideriamo i seguenti concetti e nomi:
+   \begin{itemize}
+      \item Nomi concetti:Vehicle, Boat, Bicycle, Car, Device, Wheel, Engine, Axle, Rotation, Water, Human, Driver, Adult, Child.
+      \item Nomi ruoli: hasPart, poweredBy, capableOf, travelsOn, controls.
+   \end{itemize}
+   Formalizziamo una serie di frasi in linguaggio naturale.
+   \begin{enumerate}
+      \item Those vehicles that have wheels and are powered by an engine.
+      \item Those vehicles that have wheels and are powered by a human.
+      \item Those vehicles that travel on water.
+      \item Those objects which have no wheels.
+      \item Those objects which do not travel on water.
+      \item Those devices that have an axle and are capable of rotation.
+      \item Those humans who control a vehicle.
+      \item The drivers of cars.
+   \end{enumerate}
+   Le trasposizioni in DL sono:
+   \begin{enumerate}
+      \item Vehicle$\sqcap \exists$hasPart.Wheel$\sqcap \exists$poweredBy.Engine
+      \item Vehicle$\sqcap \exists$hasPart.Wheel$\sqcap \exists$poweredBy.Human
+      \item Vehivle$\sqcap \exists$travelsOn.Water
+      \item $\forall$hasPart.$\lnot$Wheel
+      \item $\forall$ travelsOn.$\lnot$Water
+      \item Device$\sqcap \exists$hasPart.Axle$\sqcap \exists$capableOf.Rotation
+      \item Human$\sqcap \exists$controls.Vehicle
+      \item Driver$\sqcap \exists$controls.Car
+   \end{enumerate}
+   \vspace{2em}
+   \textbf{Descrizione concettuale:} dato un insieme di nomi di concetti \textbf{C} e un insieme di nomi di ruoli \textbf{R}, l'insieme delle descrizioni dei concetti su \textbf{C} e \textbf{R} è definito come:
+   \begin{itemize}
+      \item Ogni nome di un concetto è una descrizione di concetto.
+      \item $\top$ e $\bot$ sono descrizioni di concetti.
+      \item Se C e D sono due concetti e $r$ il nome di un ruolo, allora le seguenti formule sono descrizioni di concetti:
+      \begin{itemize}
+         \item C $\sqcap$ D
+         \item C $\sqcup$ D
+         \item $\lnot$ C
+         \item $\exists$ $r$.C
+         \item $\forall$ $r$.C
+      \end{itemize} 
+   \end{itemize}
+   La descrizione concettuale non esprime le relazioni in un DB ma le assunzioni che si fanno per fare il design di un DB.
+   \spazio
+   \textbf{Dominio di interpretazione:} un dominio di interpretazione in DL è un insieme i cui elementi sono chiamati individui o oggetti, nel seguente modo:
+   \begin{itemize}
+      \item Per ogni nome di concetto gli elementi appartenenti alla sua estensione sono parte del dominio.
+      \item Per ogni nome di ruolo gli elementi (coppie ordinate di elementi) appartenenti alla sua estensione sono parte del dominio.
+   \end{itemize}
+   \vspace{2em}
+   \textbf{Interpretazione TBox:} dato un insieme di nomi di concetti \textbf{C} e un insieme di nomi di ruoli \textbf{R}; dato un dominio $\Delta ^\prime$, un interpretazione $I=(\Delta^\prime, \cdot^\prime)$ è composta dal dominio con una funzione di mappatura che:
+   \begin{itemize}
+      \item Associa ogni nome di concetto C $\in$ \textbf{C} ad un insieme C$^\prime \subseteq \Delta^\prime$.
+      \item Associa ogni nome di ruolo $r \in$\textbf{R} ad un insieme $r^\prime \subseteq \Delta^\prime \times \Delta^\prime$.
+      \item Associa descrizioni di concetti composti nel seguente modo:
+      \begin{itemize}
+         \item $\top^\prime = \Delta^\prime$
+         \item $\bot^\prime = \emptyset$
+         \item $(C \sqcap D)^\prime = C^\prime \cap D^\prime$
+         \item $(C \sqcup D)^\prime = C^\prime \cup D^\prime$
+         \item $\lnot C^\prime = \Delta^\prime \backslash C^\prime$
+         \item $(\exists r.C) = \{ d \in \Delta^\prime | \text{esiste una } e \in \Delta^\prime \text{con } (d,e) \in r^\prime \text{ e } e \in C^\prime\}$
+         \item $(\forall r.C) = \{ d \in \Delta^\prime | \text{per tutte le } e \in \Delta^\prime \text{se } (d,e) \in r^\prime \text{ allora } e \in C^\prime\}$
+      \end{itemize} 
+   \end{itemize} 
+\end{document}
