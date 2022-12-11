@@ -151,5 +151,121 @@
          \item $(\exists r.C) = \{ d \in \Delta^\prime | \text{esiste una } e \in \Delta^\prime \text{con } (d,e) \in r^\prime \text{ e } e \in C^\prime\}$
          \item $(\forall r.C) = \{ d \in \Delta^\prime | \text{per tutte le } e \in \Delta^\prime \text{se } (d,e) \in r^\prime \text{ allora } e \in C^\prime\}$
       \end{itemize} 
+   \end{itemize}
+
+   \section{Teorie TBox}
+   \textbf{Concetto di inclusione:} un concetto di inclusione è un'espressione della seguente forma:
+   \begin{center}
+      $C \sqsubseteq D$
+   \end{center}
+   dove C e D sono descrizioni di concetti. $C \sqsubseteq D$ va letto come "C è sussunta da D".
+
+   \subsubsection{Esempio}
+   Consideriamo i seguenti concetti e nomi:
+   \begin{itemize}
+      \item Nomi concetti:Vehicle, Boat, Bicycle, Car, Device, Wheel, Engine, Axle, Rotation, Water, Human, Driver, Adult, Child.
+      \item Nomi ruoli: hasPart, poweredBy, capableOf, travelsOn, controls.
+   \end{itemize}
+   Formalizziamo una serie di frasi in linguaggio naturale.
+   \begin{enumerate}
+      \item Boats have no wheels.
+      \item Cars and bicycles do not travel on water.
+      \item Drivers of cars are adults.
+      \item Humans are not vehicles.
+      \item Wheels or engines are not humans.
+      \item Humans are either adults or children.
+      \item Adults are not children.
+   \end{enumerate}
+   Le trasposizioni in DL sono:
+   \begin{enumerate}
+      \item Boat$\sqsubseteq \forall$hasPart.$\lnot$Wheel
+      \item Car$\sqcup$Bicycle$\sqsubseteq \forall$travelsOn.$\lnot$Water
+      \item Driver$\sqcap \exists$controls.Car$\sqsubseteq$Adult
+      \item Human$\sqsubseteq \lnot$Vehicle
+      \item Wheel$\sqcup$Engine$\sqsubseteq \lnot$Human
+      \item Human$\sqsubseteq$Adult$\sqcup$Child
+      \item Adult$\sqsubseteq \lnot$Child
+   \end{enumerate}
+   \vspace{2em}
+   \textbf{Soddisfabilità dell'inclusione dei concetti:} sia \textbf{C} un insieme di nomi di concetti e \textbf{R} un insieme di nomi di ruoli, allor adato un dominio $\Delta^\prime$ e un'interpretazione $I = (\Delta^\prime, \cdot^\prime)$ abbiamo che:
+   \begin{center}
+      se $C^\prime \subseteq D^\prime$ allora $I$ è un modello di $C \sqsubseteq D$
+   \end{center}
+   dove C e D sono descrizionali concettuali.
+   \spazio
+   \textbf{TBox:} una TBox è un insieme finito di inclusioni concettuali, come un insieme finito di espressioni $C \sqsubseteq D$, dove C e D sono nomi di concetti (che possibilmente coinvolgono concetti composti).
+   
+   \subsubsection{Esempio}
+   Consideriamo la descrizione concettuale "Dogs are Computer Science professors", che in DL diventa Dog $\sqsubseteq$ CS\_Professor.\\
+   Possiamo dimostrare l'insoddisfacibilità di questa frase con una TBox:
+   \begin{equation*}
+      \mathcal{T}=
+      \begin{cases}
+         CS\_Professor \sqsubseteq Professor\\
+         Professor \sqsubseteq Person\\
+         Person \sqsubseteq \lnot Dog
+      \end{cases}
+   \end{equation*}
+   \spazio
+   \textbf{Modello per TBox:} sia \textbf{C} un insieme di nomi di concetti e \textbf{R} un insieme di nomi di ruoli, dato $\Delta^\prime$ e la sua interpretazione $I = (\Delta^\prime, \cdot^\prime)$, C e D descrizioni concettuali allora se $C^\prime \subseteq D^\prime$ per ogni $C \sqsubseteq D \in \mathcal{T}$ vuol dire che $I$ è un moodello per $\mathcal{T}$.
+   \spazio
+   \textbf{Definizione di concetto:} una definizione di concetto è un'espressione della seguente forma:
+   \begin{center}
+      $C \equiv D$ se e solo se $C \sqsubseteq D$ e $D \sqsubseteq C$.
+   \end{center}
+   dove C e D sono descrizioni concettuali e $C \equiv D$ va letto come "C è equivalente a D".
+
+   \subsubsection{Esempio}
+   Consideriamo i seguenti concetti e nomi:
+   \begin{itemize}
+      \item Nomi concetti:Vehicle, Boat, Bicycle, Car, Device, Wheel, Engine, Axle, Rotation, Water, Human, Driver, Adult, Child.
+      \item Nomi ruoli: hasPart, poweredBy, capableOf, travelsOn, controls.
+   \end{itemize}
+   Formalizziamo una serie di frasi in linguaggio naturale.
+   \begin{enumerate}
+      \item Cars are exactly those vehicles that have wheels and are powered by an engine
+      \item Bicycles are exactly those vehicles that have wheels and are powered by a human
+      \item Boats are exactly those vehicles that travel on water
+      \item Wheels are exactly those devices that have an axle and are capable of rotation
+      \item Drivers are exactly those humans who control a vehicle
+   \end{enumerate}
+   Le trasposizioni in DL sono:
+   \begin{enumerate}
+      \item Car$\equiv$Vehicle$\sqcap \exists$hasPart.Wheel$\sqcap \exists$poweredBy.Engine
+      \item Bicyle$\equiv$ Vehicle$\sqcap \exists$hasPart.Wheel$\sqcap \exists$poweredBy.Human
+      \item Boat$\equiv$ Vehicle$\sqcap \exists$travelsOn.Water
+      \item Wheel$\equiv$Device$\sqcap \exists$hasPart.Axle$\sqcap \exists$capableOf.Rotation
+      \item Driver$\equiv$Human$\sqcap \exists$controls.Vehicle
+   \end{enumerate}
+   \vspace{2em}
+   \textbf{TBox definita:} una TBox è definita se soddiafa le seguenti proprietà:
+   \begin{itemize}
+      \item Ogni concetto può apparire al più una volta nel lato sinistro di una definizione.
+      \item Sono presenti solo equivalenze concettuali $(C \equiv D)$.
+      \item E' aciclica quindi non esistono definizioni del tipo $C \equiv C$.
    \end{itemize} 
+   \subsubsection{Esempio}
+   \begin{equation*}
+      \mathcal{T}=
+      \begin{cases}
+         Person \equiv \exists hasname.String \sqcap \forall HasJob.Organization\\
+         Woman \equiv Person \sqcap  Female\\
+         Man \equiv Person \sqcap  \lnot Woman\\
+         Mother \equiv Woman \sqcap  \exists hasChild.Person\\
+         Father \equiv Man \sqcap  \exists hasChild.Person\\
+         Parent \equiv Father \sqcup Mother
+      \end{cases}
+   \end{equation*}
+   \vspace{2em}
+   \textbf{Unfolding di concetti:} un concetto è unfolded se tutte le sue componenti hanno una definizioni.
+   \spazio
+   \textbf{TBox unfolding:} una TBox $\mathcal{T}$ può essere unfolded in una TBox $\mathcal{T}^\prime$ se tutti i suoi concetti sono unfolded.
+
+   \section{Sintassi ABox}
+   \textbf{Asserzione:} un asserzione è un espressione del tipo:
+   \begin{itemize}
+      \item C(a) asserzione di concetto
+      \item r(a,b) asserzione di ruolo
+   \end{itemize}
+   dove a e b sono individui, C è un concetto (possibilmente composto) e r è il nome di un ruolo.
 \end{document}
