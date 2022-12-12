@@ -256,7 +256,7 @@
          Parent \equiv Father \sqcup Mother
       \end{cases}
    \end{equation*}
-   \vspace{2em}
+   \spazio
    \textbf{Unfolding di concetti:} un concetto è unfolded se tutte le sue componenti hanno una definizioni.
    \spazio
    \textbf{TBox unfolding:} una TBox $\mathcal{T}$ può essere unfolded in una TBox $\mathcal{T}^\prime$ se tutti i suoi concetti sono unfolded.
@@ -268,4 +268,63 @@
       \item r(a,b) asserzione di ruolo
    \end{itemize}
    dove a e b sono individui, C è un concetto (possibilmente composto) e r è il nome di un ruolo.
+   \spazio
+   \textbf{Interpertazione ABox:} sia \textbf{C} un insieme di nomi di concetti e \textbf{R} un unsieme di nomi di ruoli allora l'interpretazione di un'asserzione è definita come:
+   \begin{itemize}
+      \item $(C(a))^\prime = a^\prime \in C^\prime$
+      \item $(r(a, b))^\prime = (a^\prime,b^\prime) \in r^\prime$
+   \end{itemize}
+   dove C è un concetto (possibilmente composto) e $r$ il nome di un ruolo.
+
+   \section{Teorie ABox}
+   \textbf{ABox:} un ABox è un insieme finito di asserzioni di concetti o asserzioni di ruoli, come un insieme finito di espressioni del tipo :
+   \begin{itemize}
+      \item C(a) asserzione di concetto
+      \item r(a,b) asserione di ruolo
+   \end{itemize} 
+   dove a,b sono nomi individuali, C è un concetto composto e r è il nome di un ruolo.
+   \spazio
+   \textbf{Modello di un ABox:} sia \textbf{C} un insieme di nomi di concetti e \textbf{R} un insieme di nomi di ruoli.\\
+   Un modelloo di un ABox è un'interpretazione che soddisfa ogni asserzione nell'ABox.\\
+   L'interpetazione deve:
+   \begin{itemize}
+      \item $I$ soddisfa un'asserzione di concetto $C(a)$ se $a^\prime \in C^\prime$.
+      \item $I$ soddisfa un'asserzione di ruolo $r(a,b)$ se $(a^\prime, b^\prime) \in r^\prime$. 
+   \end{itemize}
+   \vspace{2em}
+   \textbf{Espansione di concetti:} sia $\mathcal{T}$ una TBox definita e $\mathcal{A}$ un ABox.\\
+   Sia $C$ un concetto definito in $\mathcal{T}$ come $C \equiv C^\prime$ e occorrente in $\mathcal{A}$, sia poi $a$ un individuo occorrente in $\mathcal{A}$ allora $C^\prime (a)$, l'espansione di $C(a)$ rispetto a $\mathcal{T}$, è ottenibile sostituendo $C$ con $C^\prime$.
+   \spazio
+   \textbf{Espansione di ABox rispetto ad una TBox:} applicando l'espansione a tutti i concetti nella ABox e definiti nella TBox la nuova Abox $\mathcal{A}^\prime$ risultante è chiamata espansione di $\mathcal{A}$ rispetto a $\mathcal{T}$.
+
+   \subsubsection{Esempio}
+   Date le Tbox e ABox:
+   \begin{equation*}
+      \mathcal{T}=
+      \begin{cases}
+         Mother \equiv Female \sqcap \exists hasChild.Person\\
+         Female \equiv Person \sqcap \lnot Male
+      \end{cases}
+   \end{equation*}
+   \begin{equation*}
+      \mathcal{A}=
+      \begin{cases}
+         Mother(Anna)
+      \end{cases}
+   \end{equation*}
+   L'estensione di $\mathcal{A}$ rispetto a $\mathcal{T}$ é:
+   \begin{equation*}
+      \mathcal{T}^\prime=
+      \begin{cases}
+         Mother(Anna)\\
+         Female(Anna)\\
+         \exists hasChild.Person(Anna)\\
+         Person(Anna)\\
+         \lnot Male(Anna) 
+      \end{cases}
+   \end{equation*}
+   \spazio
+   \textbf{Conoscenze di base:} una conoscenza di base $\mathcal{K} = (\mathcal{T},\mathcal{A})$ è una tupla composta da una TBox $\mathcal{T}$ ed una ABox $\mathcal{A}$.
+   \spazio
+   \textbf{Modello di una base di conoscenza:} un interpretazione $I$ è un modello per una conoscenza di base $\mathcal{K} = (\mathcal{T},\mathcal{A})$ se è un modello sia per $\mathcal{T}$ e per $\mathcal{A}$.
 \end{document}
