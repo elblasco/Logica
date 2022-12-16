@@ -327,4 +327,24 @@
    \textbf{Conoscenze di base:} una conoscenza di base $\mathcal{K} = (\mathcal{T},\mathcal{A})$ è una tupla composta da una TBox $\mathcal{T}$ ed una ABox $\mathcal{A}$.
    \spazio
    \textbf{Modello di una base di conoscenza:} un interpretazione $I$ è un modello per una conoscenza di base $\mathcal{K} = (\mathcal{T},\mathcal{A})$ se è un modello sia per $\mathcal{T}$ e per $\mathcal{A}$.
+
+   \chapter{Modeling}
+   \section{Principali risultati teorici}
+   DL è una specie di zucchero sintattico per un sottoinsieme di FOL, questo sottoinsieme è ristretto a termini binari, unari e nessun simbolo di funzione.
+   \spazio
+   \textbf{Da DL a FOL:} sia $T_{DF(X)}$ una funzione di traduzione da DL a FOL, abbiamo quindi le seguenti formule:
+   \begin{itemize}
+      \item $T_{DF(X)}(C) = C(x)$
+      \item $T_{DF(X)}(C \sqcap D) = T_{DF(X)}(C) \land T_{DF(X)}(D)$
+      \item $T_{DF(X)}(C \sqcup D) = T_{DF(X)}(C) \lor T_{DF(X)}(D)$
+      \item $T_{DF(X)}(\exists r.C) = \exists y.r(x, y) \land TDF(y)(C)$
+      \item $T_{DF(X)}(\forall r.C) = \forall y.r(x, y) \implies TDF(y)(C)$
+   \end{itemize}
+   Possimao avere le seguenti traduzioni:
+   \begin{itemize}
+      \item $T_{DF} (C \sqsubseteq D) = \forall x.(T_{DF}(x)(C) \implies T_{DF(x)}(D))$, per tutte le inclusioni concettuali in $\mathcal{T}$
+      \item $T_{DF} (C(a)) = T_{DF(x)}(C[a/x])$, con $C(a) \in \mathcal{A}$
+      \item $TDF (r(a, b)) = r(a, b)$, con $r(a,b) \in \mathcal{A}$
+   \end{itemize}
+   Sia ora $\mathcal{K}= (\mathcal{T},\mathcal{A})$ una knowledge base in DL.   
 \end{document}
