@@ -2,8 +2,6 @@
 
 \graphicspath{{\subfix{../img/}}}
 
-\newcommand{\spazio}{\vspace{2em} \newline}
-
 \begin{document}
    \part{Logica Descrittiva}
 
@@ -199,7 +197,7 @@
    Consideriamo la descrizione concettuale "Dogs are Computer Science professors", che in DL diventa Dog $\sqsubseteq$ CS\_Professor.\\
    Possiamo dimostrare l'insoddisfacibilità di questa frase con una TBox:
    \begin{equation*}
-      \mathcal{T}=
+      \T=
       \begin{cases}
          CS\_Professor \sqsubseteq Professor\\
          Professor \sqsubseteq Person\\
@@ -207,7 +205,7 @@
       \end{cases}
    \end{equation*}
    \spazio
-   \textbf{Modello per TBox:} sia \textbf{C} un insieme di nomi di concetti e \textbf{R} un insieme di nomi di ruoli, dato $\Delta^\prime$ e la sua interpretazione $I = (\Delta^\prime, \cdot^\prime)$, C e D descrizioni concettuali allora se $C^\prime \subseteq D^\prime$ per ogni $C \sqsubseteq D \in \mathcal{T}$ vuol dire che $I$ è un moodello per $\mathcal{T}$.
+   \textbf{Modello per TBox:} sia \textbf{C} un insieme di nomi di concetti e \textbf{R} un insieme di nomi di ruoli, dato $\Delta^\prime$ e la sua interpretazione $I = (\Delta^\prime, \cdot^\prime)$, C e D descrizioni concettuali allora se $C^\prime \subseteq D^\prime$ per ogni $C \sqsubseteq D \in \T$ vuol dire che $I$ è un moodello per $\T$.
    \spazio
    \textbf{Definizione di concetto:} una definizione di concetto è un'espressione della seguente forma:
    \begin{center}
@@ -246,7 +244,7 @@
    \end{itemize} 
    \subsubsection{Esempio}
    \begin{equation*}
-      \mathcal{T}=
+      \T=
       \begin{cases}
          Person \equiv \exists hasname.String \sqcap \forall HasJob.Organization\\
          Woman \equiv Person \sqcap  Female\\
@@ -259,7 +257,7 @@
    \spazio
    \textbf{Unfolding di concetti:} un concetto è unfolded se tutte le sue componenti hanno una definizioni.
    \spazio
-   \textbf{TBox unfolding:} una TBox $\mathcal{T}$ può essere unfolded in una TBox $\mathcal{T}^\prime$ se tutti i suoi concetti sono unfolded.
+   \textbf{TBox unfolding:} una TBox $\T$ può essere unfolded in una TBox $\T^\prime$ se tutti i suoi concetti sono unfolded.
 
    \section{Sintassi ABox}
    \textbf{Asserzione:} un asserzione è un espressione del tipo:
@@ -292,29 +290,29 @@
       \item $I$ soddisfa un'asserzione di ruolo $r(a,b)$ se $(a^\prime, b^\prime) \in r^\prime$. 
    \end{itemize}
    \vspace{2em}
-   \textbf{Espansione di concetti:} sia $\mathcal{T}$ una TBox definita e $\mathcal{A}$ un ABox.\\
-   Sia $C$ un concetto definito in $\mathcal{T}$ come $C \equiv C^\prime$ e occorrente in $\mathcal{A}$, sia poi $a$ un individuo occorrente in $\mathcal{A}$ allora $C^\prime (a)$, l'espansione di $C(a)$ rispetto a $\mathcal{T}$, è ottenibile sostituendo $C$ con $C^\prime$.
+   \textbf{Espansione di concetti:} sia $\T$ una TBox definita e $\A$ un ABox.\\
+   Sia $C$ un concetto definito in $\T$ come $C \equiv C^\prime$ e occorrente in $\A$, sia poi $a$ un individuo occorrente in $\A$ allora $C^\prime (a)$, l'espansione di $C(a)$ rispetto a $\T$, è ottenibile sostituendo $C$ con $C^\prime$.
    \spazio
-   \textbf{Espansione di ABox rispetto ad una TBox:} applicando l'espansione a tutti i concetti nella ABox e definiti nella TBox la nuova Abox $\mathcal{A}^\prime$ risultante è chiamata espansione di $\mathcal{A}$ rispetto a $\mathcal{T}$.
+   \textbf{Espansione di ABox rispetto ad una TBox:} applicando l'espansione a tutti i concetti nella ABox e definiti nella TBox la nuova Abox $\A^\prime$ risultante è chiamata espansione di $\A$ rispetto a $\T$.
 
    \subsubsection{Esempio}
    Date le Tbox e ABox:
    \begin{equation*}
-      \mathcal{T}=
+      \T=
       \begin{cases}
          Mother \equiv Female \sqcap \exists hasChild.Person\\
          Female \equiv Person \sqcap \lnot Male
       \end{cases}
    \end{equation*}
    \begin{equation*}
-      \mathcal{A}=
+      \A=
       \begin{cases}
          Mother(Anna)
       \end{cases}
    \end{equation*}
-   L'estensione di $\mathcal{A}$ rispetto a $\mathcal{T}$ é:
+   L'estensione di $\A$ rispetto a $\T$ é:
    \begin{equation*}
-      \mathcal{T}^\prime=
+      \T^\prime=
       \begin{cases}
          Mother(Anna)\\
          Female(Anna)\\
@@ -324,9 +322,9 @@
       \end{cases}
    \end{equation*}
    \spazio
-   \textbf{Conoscenze di base:} una conoscenza di base $\mathcal{K} = (\mathcal{T},\mathcal{A})$ è una tupla composta da una TBox $\mathcal{T}$ ed una ABox $\mathcal{A}$.
+   \textbf{Conoscenze di base:} una conoscenza di base $\mathcal{K} = (\T,\A)$ è una tupla composta da una TBox $\T$ ed una ABox $\A$.
    \spazio
-   \textbf{Modello di una base di conoscenza:} un interpretazione $I$ è un modello per una conoscenza di base $\mathcal{K} = (\mathcal{T},\mathcal{A})$ se è un modello sia per $\mathcal{T}$ e per $\mathcal{A}$.
+   \textbf{Modello di una base di conoscenza:} un interpretazione $I$ è un modello per una conoscenza di base $\mathcal{K} = (\T,\A)$ se è un modello sia per $\T$ e per $\A$.
 
    \chapter{Modeling}
    \section{Principali risultati teorici}
@@ -342,9 +340,107 @@
    \end{itemize}
    Possimao avere le seguenti traduzioni:
    \begin{itemize}
-      \item $T_{DF} (C \sqsubseteq D) = \forall x.(T_{DF}(x)(C) \implies T_{DF(x)}(D))$, per tutte le inclusioni concettuali in $\mathcal{T}$
-      \item $T_{DF} (C(a)) = T_{DF(x)}(C[a/x])$, con $C(a) \in \mathcal{A}$
-      \item $TDF (r(a, b)) = r(a, b)$, con $r(a,b) \in \mathcal{A}$
+      \item $T_{DF} (C \sqsubseteq D) = \forall x.(T_{DF}(x)(C) \implies T_{DF(x)}(D))$, per tutte le inclusioni concettuali in $\T$
+      \item $T_{DF} (C(a)) = T_{DF(x)}(C[a/x])$, con $C(a) \in \A$
+      \item $TDF (r(a, b)) = r(a, b)$, con $r(a,b) \in \A$
    \end{itemize}
-   Sia ora $\mathcal{K}= (\mathcal{T},\mathcal{A})$ una knowledge base in DL.   
+   Sia ora $\mathcal{K}= (\T,\A)$ una knowledge base in DL con $T_{DF}(\T)$ e $T_{DF}(\A)$ rispettivamente gli insiemi di tutte le traduzioni delle inclusioni logiche $\T$ e asserzioni $\A$, abbiamo allora i seguenti teoremi:
+   \begin{itemize}
+      \item $\mathcal{K}$ è soddisfacibile se e solo se $T_{DF}(\T) \land T_{DF}(\A)$ è soddisfacibile.
+      \item $C \sqsupseteq_\T D$ se e solo se è valida la seguente formula:
+         \begin{equation*}
+            T_{DF(\T)} \implies \forall x.(T_{DF(x)}(C) \implies T_{DF(x)}(D))
+         \end{equation*}
+      \item $a$ è un'istanza di $C$ rispetto a $\T$ se e solo se la seguente formula è valida:
+         \begin{equation*}
+            (T_{DF}(\T) \land T_{DF}(C)) \implies T_{DF(x)}(C[a/x])
+         \end{equation*}
+   \end{itemize}
+   \vspace{2em}
+   \textbf{Ragionamento in DL:} per poter applicare degli algoritmi di ragionamento su delle teorie (TBox e ABox) in DL dobbiamo prima tradurle in FOL e successivamente usare i Tableaux per verificare la validità ecc \dots della formula in FOL che abbiamo.
+   \subsubsection{Esempio}
+   Traduzione TBox dal linguaggio naturale prima in DL poi in FOL
+   \begin{enumerate}
+      \item A teacher is a person who teaches a course
+      \item A student is a person who attends a course
+      \item Students do not teach
+   \end{enumerate}
+   \begin{minipage}{0.5\textwidth}
+      \textbf{Traduzioni in DL}
+      \begin{enumerate}
+         \item $Teacher \equiv Person \sqcap \exists teaches.Course$
+         \item $Student \equiv Person \sqcap \exists attends.Course$
+         \item $\exists teaches. \top \sqsubseteq \lnot Student$
+      \end{enumerate} 
+   \end{minipage}
+   \begin{minipage}{0.5\textwidth}
+      \textbf{Traduzioni in FOL}
+      \begin{enumerate}
+         \item $\forall x.(Teacher(x) \equiv Person(x) \land \exists y .(teaches(x,y) \land Course(y)))$
+         \item $\forall x.(Student(x) \equiv Person(x) \land \exists y .(attends(x,y) \land Course(y)))$
+         \item $\forall x.(\exists y.teaches(x,y) \supset \lnot Student(x))$
+      \end{enumerate}
+   \end{minipage}
+   \spazio
+   \textbf{Semantica del mondo chiuso:} è una metodologia di interpretazione tipica dei DB, se un elemento non è presente nel DB si assume sia falso.\\
+   Permette quindi un solo modello quello in cui tutto ciò conosciuto è vero e tutto quello non conosciuto è falso.
+   \spazio
+   \textbf{Semantica del mondo aperto:} interpretazione tipica dei KG e delle Abox in cui non possiamo fare assunzioni su ciò che non conosciamo.\\
+   Permette quindi molteplici modelli in cui ciò che non conosciamo può essere sia vero che falso.
+   \subsubsection{Esempio}
+   Prendiamo in esame la seguente base di conoscenza $\mathcal{K}=(\T,\A)$:
+   \begin{gather*}
+      \T=
+      \begin{cases}
+         Mother \equiv Female \sqcap \exists hasChild.Person
+      \end{cases}\\
+      \A=
+      \begin{cases}
+         Mother(Anna)\\
+         hasChild(Anna, Bob)
+      \end{cases}
+   \end{gather*}
+   \begin{itemize}
+      \item Per la semantica del mondo chiuso Anna ha solo Bob come figlio.
+      \item Per la semantica del mondo aperto Anna ha almeno Bob come figlio, potrebbe averne più come anche solo Bob.
+   \end{itemize}
+   
+   \section{Da semi-formale a formale}
+   \subsection{Modelo ER}
+   Un ER descrive cose correlate tra di loro nel nostro dominio di conoscenza attraveso classi/entità e relazioni che collegano tra di loro le classi/entità.\\
+   L'ER quindi non è altro che un modello astratto che definisce dati o informazioni  sulla struttura dei dati.
+   \begin{center}
+      \includegraphics[scale=0.7]{ER_example.png}
+   \end{center}
+
+   \subsection{Modello EER}
+   EER sta per Extended ER questo perchè partiamo da tutti i concetti definiti nei diagrammi ER, ai quali però aggiungiamo i concetti di sotto/super classe con la relazione "\textbf{is-a}".\\
+   Una super classe è un'entità/classe che può essere divisa in più sotto classi e una sotto classe eredita le proprietà della sua super classe.\\
+   Si possono adottare due metodi per creare super/sotto classi.
+   \begin{enumerate}
+      \item \textbf{Generalizzazione:} avendo un gruppo di sotto classi si cercano gli attributi che hanno in comune e con quelli si crea una super classe.
+      \item \textbf{Specializzazione:} con una super classe classe si cerca di identificare un sottoinsieme di entità che hanno alcune caratteristiche diverse.
+   \end{enumerate}
+   \begin{center}
+      \includegraphics[scale=0.7]{EER_example.png}
+   \end{center}
+   \vspace{2em}
+   Vediamo ora cosa vuol dire ontologia, questo termine ha significati differenti in base all'ambito in cui ci si trova.
+   \spazio
+   \textbf{Ontologia nella filosofia:} la disciplina che si occupa di dare un significato alla natura e alla struttura della realtà.
+   \spazio
+   \textbf{Ontologia in informatica:} è un tipo speciale di oggetto contenente informazioni oppure di artifatto prodotto dalla computazione.
+   \begin{itemize}
+      \item Modella formalmente la struttura di un sistema come le entità rilevanti e le relazioni che vengono scoperte.
+   \end{itemize}
+
+   \chapter{Ragionamento}
+   \section{Problemi di ragionamento con le TBox}
+   I principali problemi quando si opera con le TBox sono 4:
+   \begin{enumerate}
+      \item \textbf{Soddisfacibilità:} un concetto $C$ è soddisfacibile rispetto a $\T$ se esiste un modello $I$ di $\T$ tale che $C_I$ sia non vuoto, in questo caso possiamo anche dire che $I$ è un modello per $C$.
+      \item \textbf{Sussunzione:} un concetto $C$ è sussunto da un concetto $D$ rispetto a $\T$ se $C^\prime \subseteq D^\prime$ per ogni modello $I$ di $\T$, in questo caso possiamo scrivere $C \sqsubseteq_\T D$ oppure $T \models C \sqsubseteq D$.
+      \item \textbf{Equivalenza:} due concetti $C$ e $D$ sono equivalenti rispetto a $\T$ se $C^\prime = D^\prime$ per ogni modello $I$ di $\T$, in questo caso possiamo scrivere $C \equiv_\T D$ oppure $\T \models C \equiv D$.
+      \item \textbf{Disgiunzione:} due concetti $C$ e $D$ sono disgiunti rispetto a $\T$ se $C^\prime \cap D^\prime = \emptyset$ per ogni modello $I$ di $\T$, in questo caso scriveremo $C \bot D$.
+   \end{enumerate}
 \end{document}
