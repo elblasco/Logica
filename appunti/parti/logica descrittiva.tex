@@ -443,4 +443,133 @@
       \item \textbf{Equivalenza:} due concetti $C$ e $D$ sono equivalenti rispetto a $\T$ se $C^\prime = D^\prime$ per ogni modello $I$ di $\T$, in questo caso possiamo scrivere $C \equiv_\T D$ oppure $\T \models C \equiv D$.
       \item \textbf{Disgiunzione:} due concetti $C$ e $D$ sono disgiunti rispetto a $\T$ se $C^\prime \cap D^\prime = \emptyset$ per ogni modello $I$ di $\T$, in questo caso scriveremo $C \bot D$.
    \end{enumerate}
+   E' possibile notare che se due concetti non si sussumono a vicenda e non sono disgiunti vuol dire che, a livello insiemistico, sono parzialmente sovvrapposti.
+   \spazio
+   \textbf{Consistenza di concetti:} un concetto $C$ è consistente con riferimento a $\T$ se esiste qualche interpretazione che soddisfa l'assioma $\T \cup C$ tale che $C$ sia un insieme non vuoto in quell'interpretazione, un concetto non vuoto viene detto soddisfacibile, insiddisfacibile altrimenti.
+   
+   \subsubsection{Esempio}
+   Consideriamo la TBox:
+   \begin{equation*}
+      \T=
+      \begin{cases}
+         Undergraduate \sqsubseteq \lnot Teach\\
+         Bachelor \equiv Student \sqcap Undergraduate\\
+         Master \equiv Student \sqcap \lnot Undergraduate\\
+         PhD \equiv Master \sqcap Research\\
+         Assistant \equiv PhD \sqcap Teach\\
+      \end{cases}
+   \end{equation*}
+   \begin{center}
+      \includegraphics[scale=0.5]{venn_example.png}
+   \end{center}
+   Proviamo a vedere se il seguente fatto è consistente/soddisfacibile:
+   \begin{equation*}
+      \T \models Bachelor \sqcap PhD
+   \end{equation*}
+   Per provare che è falsa iniziamo a sostituire Bachelor e Phd con le definizioni che ho nella TBox fino a che non trovo un insieme vuoto.
+   \begin{align*}
+      &Bachelor \sqcap PhD\\
+      &\equiv (Student \sqcap Undergraduate) \sqcap (Master \sqcap Research)\\
+      &\equiv (Student \sqcap Undergraduate) \sqcap ((Student \sqcap \lnot Undergraduate) \sqcap Research)\\
+      &\equiv Student \sqcap \textbf{Undergraduate} \sqcap \lnot \textbf{Undergraduate} \sqcap Research\\
+      &\equiv Student \sqcap \bot \sqcap Research
+   \end{align*}
+   \spazio
+   \textbf{Sussunzione di concetti:} un concetto $C$ è sussunto da un concetto $D$ se in ogni modello di $\T$ l'insieme denotato da $C$ è sottoinsieme dell'insieme denotato da $D$.
+   \spazio
+   \textbf{Equivalenza di concetti:} è spesso definita usando la sussunzione dei concetti:
+   \begin{equation*}
+      \T \models C \equiv D\ \text{se e solo se}\ \T \models C \sqsubseteq D\ \text{e}\ \T \models D \sqsubseteq D
+   \end{equation*}
+
+   \subsubsection{Esempio}
+   Prendiamo la TBox dell'esempio precedente e proviamo a verificare se $PhD \sqsubseteq Student$ è soddisfacibile.\\
+   Formaliziamo il problema in:
+   \begin{equation*}
+      \T \models PhD \sqsubseteq Student
+   \end{equation*}
+   Posso quindi ora espandere PhD e verificare che sia sempre sottoinsieme di Student.
+   \begin{align*}
+      &PhD\\
+      &\equiv Master \sqcap Research\\
+      &\equiv (Student \sqcap \lnot Undergraduate) \sqcap Research\\
+      &\sqsubseteq Student
+   \end{align*}
+   \spazio
+   Verifichiamo ora se $Student \equiv Bachelor \sqcap Master$ è consistente con $\T$, formaliziamolo in:
+   \begin{equation*}
+      \T \models Student \equiv Bachelor \sqcup Master
+   \end{equation*}
+   Ora espandiamo il concetto $Bachelor \sqcup Master$ e verifivhiamo che ritorni $Student$.
+   \begin{align*}
+      &Bachelor \sqcup Master\\
+      &\equiv (Student \sqcap Undergraduate) \sqcup (Student \sqcap \lnot Undergraduate)\\
+      &\equiv Student \sqcup (Undergraduate \sqcap \lnot Undergraduate)\\
+      &\equiv Student \sqcup \top\\
+      &\equiv Student 
+   \end{align*}
+   \spazio
+   \textbf{Disgiunzioni di concetti:} viene usata per verificare se due concetti hanno elementi in comune, formalmente:
+   \begin{equation*}
+      \T \models C \bot D
+   \end{equation*}
+   Però possiamo tenere a mente la definizione di disgiunzione.
+   \begin{equation*}
+      C \bot D \equiv C \sqcap D \sqsubseteq \bot
+   \end{equation*}
+
+   \subsubsection{Esempio}
+   Consideriamo la stassa TBox di prima e verifichiamo se $Undergraduate \sqcap Assistant \sqsubseteq \bot$ è consistente con $\T$, formalizziamo il problema in:
+   \begin{equation*}
+      \T \models Undergraduate \sqcap Assistant \sqsubseteq \bot
+   \end{equation*}
+   Ora espandiamo la prima parte e verifichiamo che se è effettivamente $\sqsubseteq \bot$.
+   \begin{align*}
+      &Undergraduate \sqcap Assistant\\
+      &\sqsubseteq \lnot Teach \sqcap Assistant\\
+      &\equiv \lnot Teach \sqcap (PhD \sqcap Teach)\\
+      &\equiv \bot \sqcap PhD\\
+      &\equiv \bot
+   \end{align*}
+   \spazio
+   \textbf{Riduzione dei problemi di ragionamento:} per due concetti $C$ e $D$ i problemi di sussunzione, equivalenza e disgiunzione possono essere visti come problemi di soddisfacibilità.
+   \begin{itemize}
+      \item \textbf{Sussunzione:} $C$ è sussunto da $D$ se e solo se $C \sqcap \lnot D$ è insoddisfacibile.
+      \item \textbf{Equivalenza:} $C$ e $D$ sono equivalenti se e solo se $(C \sqcap \lnot D)$ e $(D \sqcap \lnot C)$ sono entrambe insoddisfacibili.
+      \item \textbf{Disgiunzione:} $C$ e $D$ sono disgiunti se e solo se $C \sqcap D$ è insoddisfacibile.
+   \end{itemize}
+
+   \section{Problemi di ragionamento con le ABox}
+   I principali problemi di ragionamento con un ABox $\A$ possono essere 4.
+   \begin{enumerate}
+      \item \textbf{Consistenza:} un Abox $\A$ è consistente rispetto ad una TBox $\T$ se se esiste un'interpretazione $I$ che è modello sia di $\A$ si di $\T$.
+      \item \textbf{Controllo di istanza:} controllare ogniqualvolta un associazione $C(a)$ è conseguita da una ABox.
+      \item \textbf{Recupero d'istanze:} dato un concetto $C$, recuperare tutte le istanze che soddisfano $C$.
+      \item \textbf{Realizzazione di concetto:} dato un insieme di concetti e un individuo $a$ trovare l'insieme di concetti più specifici $C$ tale che $\A \models C(a)$.
+   \end{enumerate}
+   \vspace{2em}
+   \textbf{Controllo di consistenza:} una ABox $\A$ è consistente rispetto ad una TBox $\T$ se esiste un'interpretazione che è modello di entrambe.
+   
+   \subsubsection{Esempio}
+   Data la Tbox:
+   \begin{equation*}
+      \T=
+      \begin{cases}
+         Parent \equiv Mother \sqcup Father\\
+         Father \equiv Male \sqcap hasChild\\
+         Mother \equiv Female \sqcap hasChild\\
+         Male \equiv Person \sqcap \lnot Female
+      \end{cases}
+   \end{equation*}
+   E la Abox:
+   \begin{equation*}
+      \A=
+      \begin{cases}
+         Mother(Mary)\\
+         Father(Mary)
+      \end{cases}
+   \end{equation*}
+   Possiamo dire dall'espansione di $\T$ che $Mary$ non può essere sia padre che madre, quindi $\A$ è incosistente.
+   \spazio
+   
 \end{document}
