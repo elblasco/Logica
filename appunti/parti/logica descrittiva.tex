@@ -338,7 +338,7 @@
       \item $T_{DF(X)}(\exists r.C) = \exists y.r(x, y) \land TDF(y)(C)$
       \item $T_{DF(X)}(\forall r.C) = \forall y.r(x, y) \implies TDF(y)(C)$
    \end{itemize}
-   Possimao avere le seguenti traduzioni:
+   Possiamo avere le seguenti traduzioni:
    \begin{itemize}
       \item $T_{DF} (C \sqsubseteq D) = \forall x.(T_{DF}(x)(C) \implies T_{DF(x)}(D))$, per tutte le inclusioni concettuali in $\T$
       \item $T_{DF} (C(a)) = T_{DF(x)}(C[a/x])$, con $C(a) \in \A$
@@ -569,7 +569,94 @@
          Father(Mary)
       \end{cases}
    \end{equation*}
-   Possiamo dire dall'espansione di $\T$ che $Mary$ non può essere sia padre che madre, quindi $\A$ è incosistente.
+   Possiamo dire dall'espansione di $\T$ che $Mary$ non può essere sia padre che madre, quindi $\A$ è inconsistente.
    \spazio
-   
+   \textbf{Controllo di istanza:} una procedura per verificare se l'individuo $a$ appartiene a un certo concetto $C$ o ad un certo ruolo $r$, in formula $\A \models C(a)$ se ogni interpretazione che soddisfa $\A$ soddisfa anche $C(s)$.\\
+   Possiamo vedere questo compito di ragionamento come un problema di verifica di consistenza:
+   \begin{center}
+      $\A \models C(a) \equiv \A \cup \{\lnot C(a)\}$ è inconsistente
+   \end{center}
+   Se dimostriamo che $\A \cup \{\lnot C(a)\}$ è inconsistente allora l'individuo $a$ non appartiene a $C$.
+
+   \subsubsection{Esempio}
+   Prendiamo le seguenti Tbox e Abox:
+   \begin{gather*}
+      \T=
+      \begin{cases}
+         Undergraduate \sqsubseteq \lnot Teach\\
+         Bachelor \equiv Student \sqcap Undergraduate\\
+         Master \equiv Student \sqcap \lnot Undergraduate\\
+         PhD \equiv Master \sqcap Research\\
+         Assistant \equiv PhD \sqcap Teach\\
+      \end{cases}\\
+      \A=
+      \begin{cases}
+         Master(Chen)\\
+         PhD(Enzo)\\
+         Assistant(Rui)
+      \end{cases}
+   \end{gather*}
+   Ora dobbiamo verificare se $PhD(Rui)$ è soddisfacibile, formalizziamo il problema in:
+   \begin{equation*}
+      \A \models PhD(Rui)
+   \end{equation*}
+   Possiamo ora espandere la TBox con i dati della ABox:
+   \begin{equation*}
+      Assistant(Rui) \equiv PhD(Rui) \sqcap Teach(Rui)
+   \end{equation*}
+   Abbiamo dimostrato che $\A \cup \{\lnot PhD(Rui) \text{è insoddisfacibile} \}$ quindi $PhD(Rui)$ è un'istanza corretta.
+   \spazio
+   \textbf{Recupero delle istanze:} una procedura per recuperare tutte le istanze di uno specifico concetto $C$.
+   \spazio
+   \textbf{Realizzazione dei concetti:} è la procedura per trovare il concetto $C$ più specifico che soddisfa un'istanza.
+
+   \subsubsection{Esempio}
+   Facciamo riferimento alla TBox e alla ABox precedenti.
+   \begin{center}
+      Troviamo tutte le istanze di $\lnot Undergraduate\{Chen, Enzo, Rui\}$
+   \end{center}
+   \begin{minipage}{0.3333\textwidth}
+      \begin{gather*}
+         Master(Chen) \equiv Student(Chen) \sqcap\\
+         \lnot \textbf{Undergraduate(Chen)}
+      \end{gather*}
+   \end{minipage}
+   \begin{minipage}{0.3333\textwidth}
+      \begin{gather*}
+         Phd(Enzo) \equiv
+         Master(Enzo) \sqcap\\
+         Research(Enzo) \equiv\\
+         Student(Enzo) \sqcap\\
+         \lnot \textbf{Undergraduate(Enzo)} \sqcap\\
+         Reserach(Enzo)
+      \end{gather*}
+   \end{minipage}
+   \begin{minipage}{0.3333\textwidth}
+      \begin{gather*}
+         Assistant(Rui) \equiv\\
+         PhD(Rui) \sqcap\\
+         Teach(Rui) \equiv\\
+         Master(Rui) \sqcap\\
+         Research(Rui) \sqcap\\
+         Teach(Rui) \equiv\\
+         Student(Rui) \sqcap\\
+         \lnot \textbf{Undergraduate(Rui)} \sqcap\\
+         \vdots
+      \end{gather*}
+   \end{minipage}
+   \spazio
+   \begin{center}
+      Adesso data l'istanza $Rui$ e i concetti $\{ Student, PhD, Assistant \}$ trova il concetto più specifico possibile che soddisfa $Rui$, quindi tale che $\A \models C(Rui)$.
+   \end{center}
+   Esaminando la TBox vediamo che per essere $Assistant$ dobbiamo essere $PhD$ e per essere $PhD$ dobbiamo essere $Master$ e quindi $Student$, troviamo quindi la relazione:
+   \begin{equation*}
+      Assistant \sqsubseteq PhD \sqsubseteq Student
+   \end{equation*}
+   Quindi il concetto più ristretto a cui appartiene $Rui$ è $Assistant$.
+   \spazio
+   \textbf{Riduzione del ragionamento:} vediamo ora come alcuni problemi di ragionamento possono essere visti come altri tipi di problemi di ragionamento:
+   \begin{itemize}
+      \item Il recupero di istanze e la realizzazione di concetti possono essere implementate con il controllo di istanze.
+      \item Il controllo di istanze può essere ridotto ad un problema di consistenza.
+   \end{itemize}
 \end{document}
